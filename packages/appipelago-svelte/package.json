@@ -1,5 +1,5 @@
 {
-  "name": "@appipelago/svelte",
+  "name": "appipelago-svelte",
   "version": "0.0.2",
   "description": "Svelte bindings for Appipelago elixir library",
   "type": "module",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/hungry-egg/appipelago/tree/main/packages/svelte#readme",
   "devDependencies": {
-    "@appipelago/core": "workspace:^",
+    "appipelago": "workspace:^",
     "svelte": "^4.2.15",
     "typescript": "^5.4.5"
   }

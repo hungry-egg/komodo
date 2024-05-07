@@ -36,7 +36,8 @@ defmodule Appipelago.MixProject do
 
   defp package do
     [
-      files: ~w(lib packages/core/dist package.json .formatter.exs mix.exs README.md LICENSE.txt),
+      files:
+        ~w(lib packages/appipelago/dist package.json .formatter.exs mix.exs README.md LICENSE.txt),
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => @git_url}
     ]

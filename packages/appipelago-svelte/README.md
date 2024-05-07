@@ -16,10 +16,10 @@ If you are only **using** Svelte components as opposed to writing your own, you 
 
 - Follow the instructions from [the Appipelago library](https://github.com/hungry-egg/appipelago) to render js apps with Phoenix Liveview.
 
-- Add the npm dependency `@appipelago/svelte` in the `assets` folder, e.g.
+- Add the npm dependency `appipelago-svelte` in the `assets` folder, e.g.
 
 ```
-npm install --save @appipelago/svelte --prefix assets
+npm install --save appipelago-svelte --prefix assets
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "@appipelago/core";
-+import createSvelteApp from "@appipelago/svelte";
+import { createJsApps } from "appipelago";
++import createSvelteApp from "appipelago-svelte";
 +import Counter from "path/to/svelte/counter/component.svelte";
 // ...
 

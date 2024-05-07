@@ -16,10 +16,10 @@ If you are only **using** Vue components as opposed to writing your own, you sho
 
 - Follow the instructions from [the Appipelago library](https://github.com/hungry-egg/appipelago) to render js apps with Phoenix Liveview.
 
-- Add the npm dependency `@appipelago/vue` in the `assets` folder, e.g.
+- Add the npm dependency `appipelago-vue` in the `assets` folder, e.g.
 
 ```
-npm install --save @appipelago/vue --prefix assets
+npm install --save appipelago-vue --prefix assets
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "@appipelago/core";
-+import createVueApp from "@appipelago/vue";
+import { createJsApps } from "appipelago";
++import createVueApp from "appipelago-vue";
 +import Counter from "path/to/vue/counter/component.vue";
 // ...
 

@@ -1,4 +1,4 @@
-# @appipelago/core
+# appipelago
 
 JS bindings for `Appipelago` Elixir package.
 

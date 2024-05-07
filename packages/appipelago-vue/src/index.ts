@@ -1,5 +1,5 @@
 import { App, createApp, h, reactive } from "vue";
-import { JsApp } from "@appipelago/core";
+import { JsApp } from "appipelago";
 
 const createVueApp = (
   Component,

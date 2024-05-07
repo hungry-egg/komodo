@@ -1,5 +1,5 @@
 import { SvelteComponent } from "svelte";
-import { JsApp } from "@appipelago/core";
+import { JsApp } from "appipelago";
 
 const createSvelteApp = (
   Component,

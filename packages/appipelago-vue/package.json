@@ -1,5 +1,5 @@
 {
-  "name": "@appipelago/vue",
+  "name": "appipelago-vue",
   "version": "0.0.2",
   "description": "Vue bindings for Appipelago elixir library",
   "type": "module",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/hungry-egg/appipelago/tree/main/packages/vue#readme",
   "devDependencies": {
-    "@appipelago/core": "workspace:^",
+    "appipelago": "workspace:^",
     "typescript": "^5.4.5",
     "vue": "^3.4.26"
   },

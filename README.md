@@ -29,7 +29,7 @@ Add the javascript library to your assets `package.json`:
 ```js
 "dependencies": {
   // ...
-  "@appipelago/core": "file:../deps/appipelago"
+  "appipelago": "file:../deps/appipelago"
 }
 ```
 
@@ -64,7 +64,7 @@ In `app.js`:
 
 ```diff
 // ...
-+ import { createJsApps } from "@appipelago/core";
++ import { createJsApps } from "appipelago";
 
 // ...
 
