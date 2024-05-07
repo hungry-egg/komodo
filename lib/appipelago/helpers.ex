@@ -20,6 +20,7 @@ defmodule Appipelago.Helpers do
     end
 
     "&" <> path_0 = first_part
+    path_0 = ((path_0 |> String.to_integer()) - 1) |> Integer.to_string()
     path = [path_0 | rest]
 
     unless Enum.all?(path, fn part -> part =~ ~r/^#{@valid_variable_char}+$/ end) do

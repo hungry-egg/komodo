@@ -5,12 +5,12 @@ defmodule Appipelago.HelpersTest do
   import Appipelago.Helpers
 
   describe "arguments_path/1" do
-    test "it converts a path spec to an array of strings" do
-      assert arguments_path("&2.inner[3].name[5]") == "2.inner.3.name.5"
+    test "it converts a path spec to an array of path strings, converting &n to (n-1) because of zero-indexing" do
+      assert arguments_path("&2.inner[3].name[5]") == "1.inner.3.name.5"
     end
 
     test "it works with a single part" do
-      assert arguments_path("&2") == "2"
+      assert arguments_path("&2") == "1"
     end
 
     test "it needs the first arg to be of the form &n" do
@@ -44,14 +44,14 @@ defmodule Appipelago.HelpersTest do
     test "it converts an array of strings payload" do
       assert normalise_callback_spec({"changed", ["&1.target", "&2"]}) == [
                "changed",
-               ["1.target", "2"]
+               ["0.target", "1"]
              ]
     end
 
     test "it converts a map payload" do
       assert normalise_callback_spec({"changed", %{"a" => "&1.target", "b" => "&2"}}) == [
                "changed",
-               %{"a" => "1.target", "b" => "2"}
+               %{"a" => "0.target", "b" => "1"}
              ]
     end
   end
