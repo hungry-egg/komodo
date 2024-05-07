@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "NodeNext",
+    "noImplicitAny": false,
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "sourceMap": true
+  }
+}
