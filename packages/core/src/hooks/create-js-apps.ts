@@ -6,7 +6,7 @@ export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
     this.adapter = apps[componentName];
     if (!this.adapter) {
       throw new Error(
-        `Couldn't find JS app adapter for "${componentName}" - have you added it to the list of apps in the jsApp hook?`
+        `Couldn't find JS app adapter for "${componentName}" - have you added it to the list of apps in the appipelago hook?`
       );
     }
     const props = JSON.parse(this.el.dataset.props);
