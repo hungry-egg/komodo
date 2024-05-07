@@ -1,27 +1,15 @@
 import { SvelteComponent } from "svelte";
 import { JsApp } from "appipelago";
 
-const createSvelteApp = (
-  Component,
-  opts: {
-    callbackParams?: Record<string, (...args: any[]) => Record<string, any>>;
-  } = {}
-): JsApp<{ app: SvelteComponent }> => ({
-  mount(el, initialProps, callbacks, pushEvent) {
+const createSvelteApp = (Component): JsApp<{ app: SvelteComponent }> => ({
+  mount(el, initialProps, callbackNames, emit) {
     const app = new Component({
       target: el,
       props: initialProps,
     });
-    Object.entries(callbacks).forEach(
-      ([svelteEventName, liveViewEventName]) => {
-        app.$on(svelteEventName, (event: CustomEvent) => {
-          pushEvent(
-            liveViewEventName,
-            opts.callbackParams?.[svelteEventName](event)
-          );
-        });
-      }
-    );
+    callbackNames.forEach((name) => {
+      app.$on(name, (event: CustomEvent) => emit(name, event));
+    });
     return { app };
   },
 

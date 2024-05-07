@@ -3,22 +3,15 @@ import { Root, createRoot } from "react-dom/client";
 import { JsApp } from "appipelago";
 
 const createReactApp = (
-  Component,
-  opts: {
-    callbackParams?: Record<string, (...args: any[]) => Record<string, any>>;
-  } = {}
+  Component
 ): JsApp<{
   root: Root;
   callbackProps: Record<string, (...args: any[]) => void>;
 }> => ({
-  mount(el, props, callbacks, pushEvent) {
+  mount(el, props, callbackNames, emit) {
     const root = createRoot(el);
-    const callbackProps = Object.keys(callbacks).reduce(
-      (cp, key) => ({
-        ...cp,
-        [key]: (...args) =>
-          pushEvent(callbacks[key], opts.callbackParams?.[key](...args)),
-      }),
+    const callbackProps = callbackNames.reduce(
+      (cp, name) => ({ ...cp, [name]: (...args) => emit(name, ...args) }),
       {}
     );
     root.render(createElement(Component, { ...props, ...callbackProps }));

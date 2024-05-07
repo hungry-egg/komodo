@@ -1,3 +1,4 @@
+import { extractFromObject } from "../extract-from-object.js";
 import { JsApp } from "../js-app.js";
 
 export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
@@ -14,8 +15,12 @@ export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
     this.mountReturnValue = this.adapter.mount(
       this.el,
       props,
-      callbacks,
-      (event: string, payload: any) => this.pushEvent(event, payload)
+      Object.keys(callbacks),
+      (callbackName: string, ...args: any[]) => {
+        const [eventName, payloadSpec] = callbacks[callbackName];
+        const payload = extractFromObject(args, payloadSpec);
+        this.pushEvent(eventName, payload);
+      }
     );
   },
 

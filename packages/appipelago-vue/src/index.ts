@@ -2,17 +2,14 @@ import { App, createApp, h, reactive } from "vue";
 import { JsApp } from "appipelago";
 
 const createVueApp = (
-  Component,
-  opts: {
-    callbackParams?: Record<string, (...args: any[]) => Record<string, any>>;
-  } = {}
+  Component
 ): JsApp<{ app: App<Element>; props: Record<string, any> }> => ({
-  mount(el, initialProps, callbacks, pushEvent) {
-    const callbackProps = Object.keys(callbacks).reduce(
-      (cp, key) => ({
+  mount(el, initialProps, callbackNames, emit) {
+    const callbackProps = callbackNames.reduce(
+      (cp, name) => ({
         ...cp,
-        ["on" + key.replace(/^[\w]/, (ch) => ch.toUpperCase())]: (...args) =>
-          pushEvent(callbacks[key], opts.callbackParams?.[key](...args)),
+        ["on" + name.replace(/^[\w]/, (ch) => ch.toUpperCase())]: (...args) =>
+          emit(name, ...args),
       }),
       {}
     );
