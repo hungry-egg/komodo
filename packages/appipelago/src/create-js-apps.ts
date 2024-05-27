@@ -1,5 +1,5 @@
-import { extractFromObject } from "../extract-from-object.js";
-import { JsApp } from "../js-app.js";
+import { extractFromObject } from "./extract-from-object.js";
+import { JsApp } from "./js-app.js";
 
 export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
   mounted() {
