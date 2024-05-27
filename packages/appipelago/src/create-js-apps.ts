@@ -1,6 +1,10 @@
 import { extractFromObject } from "./extract-from-object.js";
 import { JsApp } from "./js-app.js";
 
+/**
+ * Creates a hook compatible with Phoenix Liveview
+ * @param apps: Record<string, JsApp> - a register of JS apps, keyed by name
+ */
 export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
   mounted() {
     const componentName = this.el.dataset.name;
