@@ -1,6 +1,18 @@
 type ObjectPath = string;
 type PathSpec = ObjectPath | ObjectPath[] | Record<string, ObjectPath>;
 
+/**
+ * Extract values from a nested object
+ *
+ * Examples:
+ * ```
+ * extractFromObject({a: {b: 4}}, "a.b") // ==> 4
+ *
+ * extractFromObject({a: {b: 4}, c: "yay"}, ["a.b", "c"]) // ==> [4, "yay"]
+ *
+ * extractFromObject({a: {b: 4}, c: "yay"}, {first: "a.b", second: "c"}) // ==> {first: 4, second: "yay"}
+ * ```
+ */
 export const extractFromObject = (obj: any, pathSpec: PathSpec) => {
   if (Array.isArray(pathSpec)) {
     return pathSpec.map((ps) => extractFromObject(obj, ps));
