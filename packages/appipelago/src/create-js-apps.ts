@@ -7,16 +7,16 @@ import { JsApp } from "./js-app.js";
  */
 export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
   mounted() {
-    const componentName = this.el.dataset.name;
-    this.adapter = apps[componentName];
-    if (!this.adapter) {
+    const appName = this.el.dataset.name;
+    this.app = apps[appName];
+    if (!this.app) {
       throw new Error(
-        `Couldn't find JS app adapter for "${componentName}" - have you added it to the list of apps in the appipelago hook?`
+        `Couldn't find JS app for "${appName}" - have you added it to the list of apps in the appipelago hook?`
       );
     }
     const props = JSON.parse(this.el.dataset.props);
     const callbacks = JSON.parse(this.el.dataset.callbacks);
-    this.mountReturnValue = this.adapter.mount(
+    this.mountReturnValue = this.app.mount(
       this.el,
       props,
       Object.keys(callbacks),
@@ -30,10 +30,10 @@ export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
 
   updated() {
     const props = JSON.parse(this.el.dataset.props);
-    this.adapter.update(this.mountReturnValue, props);
+    this.app.update(this.mountReturnValue, props);
   },
 
   destroyed() {
-    this.adapter.unmount(this.mountReturnValue);
+    this.app.unmount(this.mountReturnValue);
   },
 });
