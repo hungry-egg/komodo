@@ -38,7 +38,7 @@ defmodule Appipelago.HelpersTest do
     end
 
     test "it converts a string payload" do
-      assert normalise_callback_spec({"changed", "&1.target"}) == ["changed", "1.target"]
+      assert normalise_callback_spec({"changed", "&1.target"}) == ["changed", "0.target"]
     end
 
     test "it converts an array of strings payload" do

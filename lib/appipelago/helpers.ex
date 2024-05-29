@@ -6,7 +6,7 @@ defmodule Appipelago.Helpers do
 
   Example:
   iex> Appipelago.Helpers.arguments_path("&1.inner[2].name")
-  "1.inner.2.name"
+  "0.inner.2.name"
 
   """
   def arguments_path(path_string) when is_binary(path_string) do
