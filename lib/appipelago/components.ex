@@ -37,6 +37,37 @@ defmodule Appipelago.Components do
     """
   end
 
+  @doc """
+  Not to be used directly - this is used by the defjsapp macro
+
+  <.js_app_alt_interface __name__="MyApp" prop1={3} @changed="handle_changed" />
+
+  is equivalent to
+
+  <.js_app name="MyApp" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
+  """
+  def js_app_alt_interface(assigns = %{__name__: name}) do
+    {callbacks, props} =
+      assigns
+      |> assigns_to_attributes()
+      |> Keyword.delete(:__name__)
+      |> Enum.split_with(fn {key, _} -> key |> Atom.to_string() |> String.starts_with?("@") end)
+
+    assigns =
+      assign(assigns,
+        name: name,
+        props: props |> Enum.into(%{}),
+        callbacks:
+          callbacks
+          |> Enum.map(fn {k, v} -> {k |> Atom.to_string() |> String.trim_leading("@"), v} end)
+          |> Enum.into(%{})
+      )
+
+    ~H"""
+    <.js_app name={@name} props={@props} callbacks={@callbacks} />
+    """
+  end
+
   defp generate_id(prefix) do
     "#{prefix}-#{System.unique_integer([:positive]) |> Integer.to_string(36)}"
   end

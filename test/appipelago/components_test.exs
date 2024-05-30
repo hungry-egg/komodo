@@ -4,7 +4,7 @@ defmodule Appipelago.ComponentsTest do
 
   import Phoenix.LiveViewTest
 
-  import Appipelago.Components, only: [js_app: 1]
+  import Appipelago.Components, only: [js_app: 1, js_app_alt_interface: 1]
 
   describe "js_app/1" do
     defp render_js_app(args) when is_list(args) do
@@ -85,6 +85,43 @@ defmodule Appipelago.ComponentsTest do
                  name: "MyApp",
                  class: "some-class"
                )
+    end
+  end
+
+  describe "js_app_alt_interface" do
+    defp render_js_app_alt_interface(args) when is_list(args) do
+      html = render_component(&js_app_alt_interface/1, args)
+      [{tag_name, attrs, _}] = Floki.parse_document!(html)
+      {tag_name, Enum.into(attrs, %{})}
+    end
+
+    test "it splits props and callbacks using @ prefix" do
+      {_, attrs} =
+        render_js_app_alt_interface(
+          __name__: "MyApp",
+          prop1: %{some: "value"},
+          prop2: ["another", "value"],
+          "@callback1": "handler1",
+          "@callback2": {"handler2", "&1"}
+        )
+
+      assert %{
+               "data-name" => "MyApp",
+               "data-props" => data_props,
+               "data-callbacks" => data_callbacks,
+               "phx-hook" => "appipelago",
+               "phx-update" => "ignore"
+             } = attrs
+
+      assert Jason.decode!(data_props) == %{
+               "prop1" => %{"some" => "value"},
+               "prop2" => ["another", "value"]
+             }
+
+      assert Jason.decode!(data_callbacks) == %{
+               "callback1" => ["handler1"],
+               "callback2" => ["handler2", "0"]
+             }
     end
   end
 end
