@@ -1,4 +1,4 @@
-# Svelte bindings for Appipelago Elixir library
+# Svelte bindings for Komodo Elixir library
 
 ## Pre-installation
 
@@ -14,12 +14,12 @@ If you are only **using** Svelte components as opposed to writing your own, you 
 
 ## Installation
 
-- Follow the instructions from [the Appipelago library](https://github.com/hungry-egg/appipelago) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
 
-- Add the npm dependency `appipelago-svelte` in the `assets` folder, e.g.
+- Add the npm dependency `komodo-svelte` in the `assets` folder, e.g.
 
 ```
-npm install --save appipelago-svelte --prefix assets
+npm install --save komodo-svelte --prefix assets
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "appipelago";
-+import createSvelteApp from "appipelago-svelte";
+import { createJsApps } from "komodo";
++import createSvelteApp from "komodo-svelte";
 +import Counter from "path/to/svelte/counter/component.svelte";
 // ...
 
@@ -66,7 +66,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
     // ...
-    appipelago: createJsApps({
+    komodo: createJsApps({
       // ...
 +      Counter: createSvelteApp(Counter, {
 +        // not needed if you don't need to map callback params

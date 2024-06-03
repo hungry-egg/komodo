@@ -1,13 +1,13 @@
-# React bindings for Appipelago Elixir library
+# React bindings for Komodo Elixir library
 
 ## Installation
 
-- Follow the instructions from [the Appipelago library](https://github.com/hungry-egg/appipelago) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
 
-- Add the npm dependency `appipelago-react` in the `assets` folder, e.g.
+- Add the npm dependency `komodo-react` in the `assets` folder, e.g.
 
 ```
-npm install --save appipelago-react --prefix assets
+npm install --save komodo-react --prefix assets
 ```
 
 ## Usage
@@ -45,8 +45,8 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "appipelago";
-+import createReactApp from "appipelago-react";
+import { createJsApps } from "komodo";
++import createReactApp from "komodo-react";
 +import Counter from "path/to/react/counter/component";
 // ...
 
@@ -54,7 +54,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
     // ...
-    appipelago: createJsApps({
+    komodo: createJsApps({
       // ...
 +      Counter: createReactApp(Counter, {
 +        // not needed if you don't need to map callback params

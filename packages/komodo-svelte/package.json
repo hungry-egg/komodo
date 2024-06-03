@@ -1,7 +1,7 @@
 {
-  "name": "appipelago-svelte",
+  "name": "komodo-svelte",
   "version": "0.0.1",
-  "description": "Svelte bindings for Appipelago elixir library",
+  "description": "Svelte bindings for Komodo elixir library",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungry-egg/appipelago/tree/main/packages/svelte.git"
+    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/svelte.git"
   },
   "keywords": [
     "elixir",
@@ -24,11 +24,11 @@
   "author": "Mark Evans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hungry-egg/appipelago/tree/main/packages/svelte/issues"
+    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte/issues"
   },
-  "homepage": "https://github.com/hungry-egg/appipelago/tree/main/packages/svelte#readme",
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte#readme",
   "devDependencies": {
-    "appipelago": "workspace:^",
+    "komodo": "workspace:^",
     "svelte": "^4.2.15",
     "typescript": "^5.4.5"
   }

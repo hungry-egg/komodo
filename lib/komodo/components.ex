@@ -1,7 +1,7 @@
-defmodule Appipelago.Components do
+defmodule Komodo.Components do
   use Phoenix.Component
 
-  alias Appipelago.Helpers
+  alias Komodo.Helpers
 
   @doc """
   Function component for rendering javascript apps
@@ -43,7 +43,7 @@ defmodule Appipelago.Components do
     <.dynamic_tag
       name={@tag_name}
       id={assigns[:id] || generate_id(@name)}
-      phx-hook="appipelago"
+      phx-hook="komodo"
       phx-update="ignore"
       data-name={@name}
       data-props={@data_props}

@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import { Root, createRoot } from "react-dom/client";
-import { JsApp } from "appipelago";
+import { JsApp } from "komodo";
 
 const createReactApp = (
   Component

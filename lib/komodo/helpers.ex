@@ -1,11 +1,11 @@
-defmodule Appipelago.Helpers do
+defmodule Komodo.Helpers do
   @valid_variable_char "[\\w_$]"
 
   @doc """
-  Converts a string path spec to an array for use in the appipelago javascript library
+  Converts a string path spec to an array for use in the komodo javascript library
 
   Example:
-  iex> Appipelago.Helpers.arguments_path("&1.inner[2].name")
+  iex> Komodo.Helpers.arguments_path("&1.inner[2].name")
   "0.inner.2.name"
 
   """

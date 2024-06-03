@@ -1,7 +1,7 @@
 {
-  "name": "appipelago-vue",
+  "name": "komodo-vue",
   "version": "0.0.1",
-  "description": "Vue bindings for Appipelago elixir library",
+  "description": "Vue bindings for Komodo elixir library",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungry-egg/appipelago/tree/main/packages/vue.git"
+    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/vue.git"
   },
   "keywords": [
     "elixir",
@@ -24,11 +24,11 @@
   "author": "Mark Evans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hungry-egg/appipelago/tree/main/packages/vue/issues"
+    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/vue/issues"
   },
-  "homepage": "https://github.com/hungry-egg/appipelago/tree/main/packages/vue#readme",
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/vue#readme",
   "devDependencies": {
-    "appipelago": "workspace:^",
+    "komodo": "workspace:^",
     "typescript": "^5.4.5",
     "vue": "^3.4.26"
   },

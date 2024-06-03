@@ -1,8 +1,8 @@
-defmodule Appipelago.HelpersTest do
+defmodule Komodo.HelpersTest do
   use ExUnit.Case
-  doctest Appipelago.Helpers
+  doctest Komodo.Helpers
 
-  import Appipelago.Helpers
+  import Komodo.Helpers
 
   describe "arguments_path/1" do
     test "it converts a path spec to an array of path strings, converting &n to (n-1) because of zero-indexing" do

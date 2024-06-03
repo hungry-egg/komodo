@@ -1,4 +1,4 @@
-# Vue 3 bindings for Appipelago Elixir library
+# Vue 3 bindings for Komodo Elixir library
 
 ## Pre-installation
 
@@ -14,12 +14,12 @@ If you are only **using** Vue components as opposed to writing your own, you sho
 
 ## Installation
 
-- Follow the instructions from [the Appipelago library](https://github.com/hungry-egg/appipelago) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
 
-- Add the npm dependency `appipelago-vue` in the `assets` folder, e.g.
+- Add the npm dependency `komodo-vue` in the `assets` folder, e.g.
 
 ```
-npm install --save appipelago-vue --prefix assets
+npm install --save komodo-vue --prefix assets
 ```
 
 ## Usage
@@ -57,8 +57,8 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "appipelago";
-+import createVueApp from "appipelago-vue";
+import { createJsApps } from "komodo";
++import createVueApp from "komodo-vue";
 +import Counter from "path/to/vue/counter/component.vue";
 // ...
 
@@ -66,7 +66,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
     // ...
-    appipelago: createJsApps({
+    komodo: createJsApps({
       // ...
 +      Counter: createVueApp(Counter, {
 +        // not needed if you don't need to map callback params

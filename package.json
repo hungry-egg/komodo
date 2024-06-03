@@ -1,9 +1,9 @@
 {
-  "name": "appipelago",
+  "name": "komodo",
   "version": "0.0.0",
   "description": "",
-  "main": "packages/appipelago/dist/index.js",
-  "types": "packages/appipelago/dist/index.d.ts",
+  "main": "packages/komodo/dist/index.js",
+  "types": "packages/komodo/dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

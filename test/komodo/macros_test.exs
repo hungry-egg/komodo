@@ -1,9 +1,9 @@
-defmodule Appipelago.MacrosTest do
+defmodule Komodo.MacrosTest do
   use ExUnit.Case
   import Phoenix.LiveViewTest
 
-  require Appipelago.Macros
-  import Appipelago.Macros, only: [defjsapp: 1]
+  require Komodo.Macros
+  import Komodo.Macros, only: [defjsapp: 1]
 
   defjsapp(:my_app)
 

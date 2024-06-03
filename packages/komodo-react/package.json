@@ -1,7 +1,7 @@
 {
-  "name": "appipelago-react",
+  "name": "komodo-react",
   "version": "0.0.1",
-  "description": "React bindings for Appipelago elixir library",
+  "description": "React bindings for Komodo elixir library",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungry-egg/appipelago/tree/main/packages/react.git"
+    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/react.git"
   },
   "keywords": [
     "elixir",
@@ -24,13 +24,13 @@
   "author": "Mark Evans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hungry-egg/appipelago/tree/main/packages/react/issues"
+    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/react/issues"
   },
-  "homepage": "https://github.com/hungry-egg/appipelago/tree/main/packages/react#readme",
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/react#readme",
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
-    "appipelago": "workspace:^",
+    "komodo": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.4.5"

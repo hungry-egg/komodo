@@ -11,7 +11,7 @@ export const createJsApps = (apps: Record<string, JsApp<any>>) => ({
     this.app = apps[appName];
     if (!this.app) {
       throw new Error(
-        `Couldn't find JS app for "${appName}" - have you added it to the list of apps in the appipelago hook?`
+        `Couldn't find JS app for "${appName}" - have you added it to the list of apps in the komodo hook?`
       );
     }
     const props = JSON.parse(this.el.dataset.props);

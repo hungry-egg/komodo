@@ -1,10 +1,10 @@
-defmodule Appipelago.ComponentsTest do
+defmodule Komodo.ComponentsTest do
   use ExUnit.Case
-  doctest Appipelago.Components
+  doctest Komodo.Components
 
   import Phoenix.LiveViewTest
 
-  import Appipelago.Components, only: [js_app: 1, js_app_alt_interface: 1]
+  import Komodo.Components, only: [js_app: 1, js_app_alt_interface: 1]
 
   describe "js_app/1" do
     defp render_js_app(args) when is_list(args) do
@@ -25,7 +25,7 @@ defmodule Appipelago.ComponentsTest do
                "data-name" => "MyApp",
                "data-props" => "{}",
                "data-callbacks" => "{}",
-               "phx-hook" => "appipelago",
+               "phx-hook" => "komodo",
                "phx-update" => "ignore"
              } = attrs
     end
@@ -109,7 +109,7 @@ defmodule Appipelago.ComponentsTest do
                "data-name" => "MyApp",
                "data-props" => data_props,
                "data-callbacks" => data_callbacks,
-               "phx-hook" => "appipelago",
+               "phx-hook" => "komodo",
                "phx-update" => "ignore"
              } = attrs
 

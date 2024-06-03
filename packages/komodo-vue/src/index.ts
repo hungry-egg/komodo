@@ -1,5 +1,5 @@
 import { App, createApp, h, reactive } from "vue";
-import { JsApp } from "appipelago";
+import { JsApp } from "komodo";
 
 const createVueApp = (
   Component

@@ -1,4 +1,4 @@
-defmodule Appipelago do
+defmodule Komodo do
   @readme_content File.read!("README.md")
 
   @moduledoc """
