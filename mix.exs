@@ -1,11 +1,11 @@
-defmodule Appipelago.MixProject do
+defmodule Komodo.MixProject do
   use Mix.Project
 
-  @git_url "https://github.com/hungry-egg/appipelago"
+  @git_url "https://github.com/hungry-egg/komodo"
 
   def project do
     [
-      app: :appipelago,
+      app: :komodo,
       version: "0.1.0",
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
@@ -37,7 +37,7 @@ defmodule Appipelago.MixProject do
   defp package do
     [
       files:
-        ~w(lib packages/appipelago/dist package.json .formatter.exs mix.exs README.md LICENSE.txt),
+        ~w(lib packages/komodo/dist package.json .formatter.exs mix.exs README.md LICENSE.txt),
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => @git_url}
     ]

@@ -1,23 +1,23 @@
-# Appipelago
+# Komodo
 
 Helpers for rendering components from typical single-page-app frameworks from Phoenix LiveView.
 
 Works with adapters for different frameworks, e.g.
 
-- [Svelte adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/svelte)
-- [React adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/react)
-- [Vue adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/vue)
+- [Svelte adapter](https://github.com/hungry-egg/komodo/tree/main/packages/svelte)
+- [React adapter](https://github.com/hungry-egg/komodo/tree/main/packages/react)
+- [Vue adapter](https://github.com/hungry-egg/komodo/tree/main/packages/vue)
 
 ![Demo](images/multi-app.gif)
 
 ## Installation
 
-This package is [on Hex](https://hexdocs.pm/appipelago), so you can add`appipelago` to your list of dependencies in `mix.exs`:
+This package is [on Hex](https://hexdocs.pm/komodo), so you can add`komodo` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:appipelago, "~> x.x.x"} # check latest with mix hex.search appipelago
+    {:komodo, "~> x.x.x"} # check latest with mix hex.search komodo
   ]
 end
 ```
@@ -29,7 +29,7 @@ Add the javascript library to your assets `package.json`:
 ```js
 "dependencies": {
   // ...
-  "appipelago": "file:../deps/appipelago"
+  "komodo": "file:../deps/komodo"
 }
 ```
 
@@ -50,7 +50,7 @@ defmodule MyAppWeb do
 
   def html_helpers do
     # ...
-+    import Appipelago.Components
++    import Komodo.Components
     # ...
   end
 
@@ -64,14 +64,14 @@ In `app.js`:
 
 ```diff
 // ...
-+ import { createJsApps } from "appipelago";
++ import { registerJsComponents } from "komodo";
 
 // ...
 
 let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
-+    appipelago: createJsApps({
++    komodo: registerJsComponents({
 +      // individual JS components will go here
 +    })
   }
@@ -84,9 +84,9 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 See documentation for the particular adapter you're using, e.g. one of
 
-- [Svelte adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/svelte)
-- [React adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/react)
-- [Vue adapter](https://github.com/hungry-egg/appipelago/tree/main/packages/vue)
+- [Svelte adapter](https://github.com/hungry-egg/komodo/tree/main/packages/svelte)
+- [React adapter](https://github.com/hungry-egg/komodo/tree/main/packages/react)
+- [Vue adapter](https://github.com/hungry-egg/komodo/tree/main/packages/vue)
 
 ## Custom Adapters
 

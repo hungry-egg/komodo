@@ -1,0 +1,35 @@
+{
+  "name": "komodo-svelte",
+  "version": "0.0.1",
+  "description": "Svelte bindings for Komodo elixir library",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/svelte.git"
+  },
+  "keywords": [
+    "elixir",
+    "phoenix",
+    "liveview",
+    "svelte",
+    "frontend",
+    "spa"
+  ],
+  "author": "Mark Evans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte/issues"
+  },
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte#readme",
+  "devDependencies": {
+    "komodo": "workspace:^",
+    "svelte": "^4.2.15",
+    "typescript": "^5.4.5"
+  }
+}
