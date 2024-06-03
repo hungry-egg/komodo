@@ -3,20 +3,22 @@ import { JsComponent } from "./js-component.js";
 
 /**
  * Creates a hook compatible with Phoenix Liveview
- * @param apps: Record<string, JsComponent> - a register of JS apps, keyed by name
+ * @param components: Record<string, JsComponent> - a register of JS components, keyed by name
  */
-export const createJsComponents = (apps: Record<string, JsComponent<any>>) => ({
+export const createJsComponents = (
+  components: Record<string, JsComponent<any>>
+) => ({
   mounted() {
-    const appName = this.el.dataset.name;
-    this.app = apps[appName];
-    if (!this.app) {
+    const componentName = this.el.dataset.name;
+    this.component = components[componentName];
+    if (!this.component) {
       throw new Error(
-        `Couldn't find JS app for "${appName}" - have you added it to the list of apps in the komodo hook?`
+        `Couldn't find JS component for "${componentName}" - have you added it to the list of components in the komodo hook?`
       );
     }
     const props = JSON.parse(this.el.dataset.props);
     const callbacks = JSON.parse(this.el.dataset.callbacks);
-    this.mountReturnValue = this.app.mount(
+    this.mountReturnValue = this.component.mount(
       this.el,
       props,
       Object.keys(callbacks),
@@ -30,10 +32,10 @@ export const createJsComponents = (apps: Record<string, JsComponent<any>>) => ({
 
   updated() {
     const props = JSON.parse(this.el.dataset.props);
-    this.app.update(this.mountReturnValue, props);
+    this.component.update(this.mountReturnValue, props);
   },
 
   destroyed() {
-    this.app.unmount(this.mountReturnValue);
+    this.component.unmount(this.mountReturnValue);
   },
 });

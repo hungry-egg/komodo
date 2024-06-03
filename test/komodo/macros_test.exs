@@ -5,12 +5,12 @@ defmodule Komodo.MacrosTest do
   require Komodo.Macros
   import Komodo.Macros, only: [defjscomponent: 1]
 
-  defjscomponent(:my_app)
+  defjscomponent(:my_component)
 
   describe "defjscomponent macro" do
     test "it creates a component with the appropriate name" do
       html =
-        render_component(&my_app/1, %{
+        render_component(&my_component/1, %{
           prop: "value",
           "@callback": "handler"
         })
@@ -19,7 +19,7 @@ defmodule Komodo.MacrosTest do
       attrs = attrs |> Enum.into(%{})
 
       assert %{
-               "data-name" => "my_app",
+               "data-name" => "my_component",
                "data-props" => data_props,
                "data-callbacks" => data_callbacks
              } = attrs

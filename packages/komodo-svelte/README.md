@@ -14,7 +14,7 @@ If you are only **using** Svelte components as opposed to writing your own, you 
 
 ## Installation
 
-- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js components with Phoenix Liveview.
 
 - Add the npm dependency `komodo-svelte` in the `assets` folder, e.g.
 
@@ -58,7 +58,7 @@ To do the above you need configure the hook in your `app.js` like so:
 ```diff
 // ...
 import { createJsComponents } from "komodo";
-+import createSvelteApp from "komodo-svelte";
++import componentFromSvelte from "komodo-svelte";
 +import Counter from "path/to/svelte/counter/component.svelte";
 // ...
 
@@ -68,7 +68,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     // ...
     komodo: createJsComponents({
       // ...
-+      Counter: createSvelteApp(Counter, {
++      Counter: componentFromSvelte(Counter, {
 +        // not needed if you don't need to map callback params
 +        callbackParams: {
 +          inc: (event) => ({ amount: event.detail }),
@@ -82,8 +82,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 
 If you don't map `callbackParams` then `handle_event` will be called with an empty map `%{}`.
-In that case you can omit the options arg to createSvelteApp in `app.js`:
+In that case you can omit the options arg to componentFromSvelte in `app.js`:
 
 ```js
-Counter: createSvelteApp(Counter);
+Counter: componentFromSvelte(Counter);
 ```

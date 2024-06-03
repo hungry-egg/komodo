@@ -1,25 +1,27 @@
 import { SvelteComponent } from "svelte";
 import { JsComponent } from "komodo";
 
-const createSvelteApp = (Component): JsComponent<{ app: SvelteComponent }> => ({
+const componentFromSvelte = (
+  Component
+): JsComponent<{ component: SvelteComponent }> => ({
   mount(el, initialProps, callbackNames, emit) {
-    const app = new Component({
+    const component = new Component({
       target: el,
       props: initialProps,
     });
     callbackNames.forEach((name) => {
-      app.$on(name, (event: CustomEvent) => emit(name, event));
+      component.$on(name, (event: CustomEvent) => emit(name, event));
     });
-    return { app };
+    return { component };
   },
 
-  update({ app }, newProps) {
-    app.$set(newProps);
+  update({ component }, newProps) {
+    component.$set(newProps);
   },
 
-  unmount({ app }) {
-    app.$destroy();
+  unmount({ component }) {
+    component.$destroy();
   },
 });
 
-export default createSvelteApp;
+export default componentFromSvelte;

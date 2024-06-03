@@ -4,7 +4,7 @@ defmodule Komodo.Components do
   alias Komodo.Helpers
 
   @doc """
-  Function component for rendering javascript apps
+  Function component for rendering javascript components
 
   It uses a "props-in, callbacks-out" data-flow, so for example a React component that is used in React like so:
 
@@ -57,13 +57,13 @@ defmodule Komodo.Components do
   Not to be used directly - this is used by the defjscomponent macro
 
   ```heex
-  <.js_component_alt_interface __name__="MyApp" prop1={3} @changed="handle_changed" />
+  <.js_component_alt_interface __name__="MyComponent" prop1={3} @changed="handle_changed" />
   ```
 
   is equivalent to
 
   ```heex
-  <.js_component name="MyApp" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
+  <.js_component name="MyComponent" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
   ```
   """
   def js_component_alt_interface(assigns = %{__name__: name}) do

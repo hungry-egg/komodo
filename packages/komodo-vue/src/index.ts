@@ -1,7 +1,7 @@
 import { App, createApp, h, reactive } from "vue";
 import { JsComponent } from "komodo";
 
-const createVueApp = (
+const componentFromVue = (
   Component
 ): JsComponent<{ app: App<Element>; props: Record<string, any> }> => ({
   mount(el, initialProps, callbackNames, emit) {
@@ -34,4 +34,4 @@ const createVueApp = (
   },
 });
 
-export default createVueApp;
+export default componentFromVue;

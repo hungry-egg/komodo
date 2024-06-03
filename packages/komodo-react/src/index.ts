@@ -2,7 +2,7 @@ import { createElement } from "react";
 import { Root, createRoot } from "react-dom/client";
 import { JsComponent } from "komodo";
 
-const createReactApp = (
+const componentFromReact = (
   Component
 ): JsComponent<{
   root: Root;
@@ -27,4 +27,4 @@ const createReactApp = (
   },
 });
 
-export default createReactApp;
+export default componentFromReact;

@@ -14,15 +14,15 @@ defmodule Komodo.ComponentsTest do
     end
 
     test "it renders an empty div (non self-closing)" do
-      html = render_component(&js_component/1, name: "MyApp")
+      html = render_component(&js_component/1, name: "MyComponent")
       assert html =~ ~r(^<div[^>]*></div>$)
     end
 
     test "it renders the correct attrs" do
-      {_, attrs} = render_js_component(name: "MyApp")
+      {_, attrs} = render_js_component(name: "MyComponent")
 
       assert %{
-               "data-name" => "MyApp",
+               "data-name" => "MyComponent",
                "data-props" => "{}",
                "data-callbacks" => "{}",
                "phx-hook" => "komodo",
@@ -33,7 +33,7 @@ defmodule Komodo.ComponentsTest do
     test "json stringifies props" do
       {_, %{"data-props" => data_props}} =
         render_js_component(
-          name: "MyApp",
+          name: "MyComponent",
           props: %{list: [1, 2, 3], map: %{a: 1, b: 2}, string: "yay"}
         )
 
@@ -47,7 +47,7 @@ defmodule Komodo.ComponentsTest do
     test "json stringifies callbacks, complete with payload spec" do
       {_, %{"data-callbacks" => data_callbacks}} =
         render_js_component(
-          name: "MyApp",
+          name: "MyComponent",
           callbacks: %{
             onEvent: "event",
             onAnotherEvent: {"another_event", "&1.detail[0]"},
@@ -63,18 +63,18 @@ defmodule Komodo.ComponentsTest do
     end
 
     test "it gives a default id" do
-      assert {_, %{"id" => id}} = render_js_component(name: "MyApp")
-      assert id =~ ~r(^MyApp-\w+$)
+      assert {_, %{"id" => id}} = render_js_component(name: "MyComponent")
+      assert id =~ ~r(^MyComponent-\w+$)
     end
 
     test "it allows setting the id" do
-      assert {_, %{"id" => "my-id"}} = render_js_component(name: "MyApp", id: "my-id")
+      assert {_, %{"id" => "my-id"}} = render_js_component(name: "MyComponent", id: "my-id")
     end
 
     test "it allows changing the element tag name" do
       assert {"section", _} =
                render_js_component(
-                 name: "MyApp",
+                 name: "MyComponent",
                  tag_name: "section"
                )
     end
@@ -82,7 +82,7 @@ defmodule Komodo.ComponentsTest do
     test "it allows adding extra attributes" do
       assert {_, %{"class" => "some-class"}} =
                render_js_component(
-                 name: "MyApp",
+                 name: "MyComponent",
                  class: "some-class"
                )
     end
@@ -98,7 +98,7 @@ defmodule Komodo.ComponentsTest do
     test "it splits props and callbacks using @ prefix" do
       {_, attrs} =
         render_js_component_alt_interface(
-          __name__: "MyApp",
+          __name__: "MyComponent",
           prop1: %{some: "value"},
           prop2: ["another", "value"],
           "@callback1": "handler1",
@@ -106,7 +106,7 @@ defmodule Komodo.ComponentsTest do
         )
 
       assert %{
-               "data-name" => "MyApp",
+               "data-name" => "MyComponent",
                "data-props" => data_props,
                "data-callbacks" => data_callbacks,
                "phx-hook" => "komodo",

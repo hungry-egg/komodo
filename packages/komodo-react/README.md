@@ -2,7 +2,7 @@
 
 ## Installation
 
-- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js components with Phoenix Liveview.
 
 - Add the npm dependency `komodo-react` in the `assets` folder, e.g.
 
@@ -46,7 +46,7 @@ To do the above you need configure the hook in your `app.js` like so:
 ```diff
 // ...
 import { createJsComponents } from "komodo";
-+import createReactApp from "komodo-react";
++import componentFromReact from "komodo-react";
 +import Counter from "path/to/react/counter/component";
 // ...
 
@@ -56,7 +56,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     // ...
     komodo: createJsComponents({
       // ...
-+      Counter: createReactApp(Counter, {
++      Counter: componentFromReact(Counter, {
 +        // not needed if you don't need to map callback params
 +        callbackParams: {
 +          onIncrement: (amount) => ({ amount }),
@@ -70,8 +70,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 
 If you don't map `callbackParams` then `handle_event` will be called with an empty map `%{}`.
-In that case you can omit the options arg to createReactApp in `app.js`:
+In that case you can omit the options arg to componentFromReact in `app.js`:
 
 ```js
-Counter: createReactApp(Counter);
+Counter: componentFromReact(Counter);
 ```

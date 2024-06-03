@@ -16,7 +16,7 @@ type Hook = {
 
 describe("createJsComponents", () => {
   let hook: Hook;
-  let testApp: JsComponent<{}>;
+  let testComponent: JsComponent<{}>;
   let emitEvent: Parameters<JsComponent<any>["mount"]>[3];
 
   const props = {
@@ -30,7 +30,7 @@ describe("createJsComponents", () => {
   };
 
   beforeEach(() => {
-    testApp = {
+    testComponent = {
       mount(el, props, callbackNames, emit) {
         emitEvent = emit;
         return "mountReturnVal";
@@ -45,22 +45,22 @@ describe("createJsComponents", () => {
       el: {
         // mock element with dataset
         dataset: {
-          name: "myApp",
+          name: "myComponent",
           props: JSON.stringify(props),
           callbacks: JSON.stringify(callbacks),
         },
       },
       pushEvent: jest.fn(),
       ...createJsComponents({
-        myApp: testApp,
+        myComponent: testComponent,
       }),
     };
   });
 
   it("passes things correctly on mount", () => {
-    jest.spyOn(testApp, "mount");
+    jest.spyOn(testComponent, "mount");
     hook.mounted();
-    expect(testApp.mount).toHaveBeenCalledWith(
+    expect(testComponent.mount).toHaveBeenCalledWith(
       hook.el,
       props,
       ["selectIndex", "dayChanged"],
@@ -69,7 +69,7 @@ describe("createJsComponents", () => {
   });
 
   it("maps callbacks correctly", () => {
-    jest.spyOn(testApp, "mount");
+    jest.spyOn(testComponent, "mount");
     hook.mounted();
 
     emitEvent("selectIndex");
@@ -86,7 +86,7 @@ describe("createJsComponents", () => {
     hook.mounted();
     hook.el.dataset.props = JSON.stringify({ some: "new props" });
     hook.updated();
-    expect(testApp.update).toHaveBeenCalledWith("mountReturnVal", {
+    expect(testComponent.update).toHaveBeenCalledWith("mountReturnVal", {
       some: "new props",
     });
   });
@@ -94,6 +94,6 @@ describe("createJsComponents", () => {
   it("passes the mount return value to unmount on destroyed", () => {
     hook.mounted();
     hook.destroyed();
-    expect(testApp.unmount).toHaveBeenCalledWith("mountReturnVal");
+    expect(testComponent.unmount).toHaveBeenCalledWith("mountReturnVal");
   });
 });

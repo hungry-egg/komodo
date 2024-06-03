@@ -14,7 +14,7 @@ If you are only **using** Vue components as opposed to writing your own, you sho
 
 ## Installation
 
-- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js apps with Phoenix Liveview.
+- Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js components with Phoenix Liveview.
 
 - Add the npm dependency `komodo-vue` in the `assets` folder, e.g.
 
@@ -58,7 +58,7 @@ To do the above you need configure the hook in your `app.js` like so:
 ```diff
 // ...
 import { createJsComponents } from "komodo";
-+import createVueApp from "komodo-vue";
++import componentFromVue from "komodo-vue";
 +import Counter from "path/to/vue/counter/component.vue";
 // ...
 
@@ -68,7 +68,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     // ...
     komodo: createJsComponents({
       // ...
-+      Counter: createVueApp(Counter, {
++      Counter: componentFromVue(Counter, {
 +        // not needed if you don't need to map callback params
 +        callbackParams: {
 +          inc: (amount) => ({ amount }),
@@ -82,8 +82,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 
 If you don't map `callbackParams` then `handle_event` will be called with an empty map `%{}`.
-In that case you can omit the options arg to createVueApp in `app.js`:
+In that case you can omit the options arg to componentFromVue in `app.js`:
 
 ```js
-Counter: createVueApp(Counter);
+Counter: componentFromVue(Counter);
 ```
