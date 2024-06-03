@@ -1,6 +1,6 @@
 import { describe, it, jest, beforeEach, expect } from "@jest/globals";
 import { JsComponent } from "../src/js-component.js";
-import { createJsComponents } from "../src/create-js-components.js";
+import { registerJsComponents } from "../src/register-js-components.js";
 
 type El = {
   dataset: { name: string; props: string; callbacks: string };
@@ -14,7 +14,7 @@ type Hook = {
   destroyed: () => void;
 };
 
-describe("createJsComponents", () => {
+describe("registerJsComponents", () => {
   let hook: Hook;
   let testComponent: JsComponent<{}>;
   let emitEvent: Parameters<JsComponent<any>["mount"]>[3];
@@ -51,7 +51,7 @@ describe("createJsComponents", () => {
         },
       },
       pushEvent: jest.fn(),
-      ...createJsComponents({
+      ...registerJsComponents({
         myComponent: testComponent,
       }),
     };

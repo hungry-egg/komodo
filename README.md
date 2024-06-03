@@ -64,14 +64,14 @@ In `app.js`:
 
 ```diff
 // ...
-+ import { createJsComponents } from "komodo";
++ import { registerJsComponents } from "komodo";
 
 // ...
 
 let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
-+    komodo: createJsComponents({
++    komodo: registerJsComponents({
 +      // individual JS components will go here
 +    })
   }

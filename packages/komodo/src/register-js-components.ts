@@ -5,7 +5,7 @@ import { JsComponent } from "./js-component.js";
  * Creates a hook compatible with Phoenix Liveview
  * @param components: Record<string, JsComponent> - a register of JS components, keyed by name
  */
-export const createJsComponents = (
+export const registerJsComponents = (
   components: Record<string, JsComponent<any>>
 ) => ({
   mounted() {

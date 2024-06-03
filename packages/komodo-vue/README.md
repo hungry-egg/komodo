@@ -57,7 +57,7 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsComponents } from "komodo";
+import { registerJsComponents } from "komodo";
 +import componentFromVue from "komodo-vue";
 +import Counter from "path/to/vue/counter/component.vue";
 // ...
@@ -66,7 +66,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
     // ...
-    komodo: createJsComponents({
+    komodo: registerJsComponents({
       // ...
 +      Counter: componentFromVue(Counter, {
 +        // not needed if you don't need to map callback params
