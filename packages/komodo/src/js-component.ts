@@ -1,6 +1,6 @@
 type Emit = (eventName: string, ...args: any[]) => void;
 
-export type JsApp<TMountReturnValue extends Record<string, any>> = {
+export type JsComponent<TMountReturnValue extends Record<string, any>> = {
   mount: (
     el: HTMLElement,
     props: Record<string, any>,

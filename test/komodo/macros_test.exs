@@ -3,11 +3,11 @@ defmodule Komodo.MacrosTest do
   import Phoenix.LiveViewTest
 
   require Komodo.Macros
-  import Komodo.Macros, only: [defjsapp: 1]
+  import Komodo.Macros, only: [defjscomponent: 1]
 
-  defjsapp(:my_app)
+  defjscomponent(:my_app)
 
-  describe "defjsapp macro" do
+  describe "defjscomponent macro" do
     test "it creates a component with the appropriate name" do
       html =
         render_component(&my_app/1, %{

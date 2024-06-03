@@ -1,7 +1,7 @@
 import { SvelteComponent } from "svelte";
-import { JsApp } from "komodo";
+import { JsComponent } from "komodo";
 
-const createSvelteApp = (Component): JsApp<{ app: SvelteComponent }> => ({
+const createSvelteApp = (Component): JsComponent<{ app: SvelteComponent }> => ({
   mount(el, initialProps, callbackNames, emit) {
     const app = new Component({
       target: el,

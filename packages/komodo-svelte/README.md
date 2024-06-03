@@ -38,7 +38,7 @@ then we can render it from a LiveView with
 ```elixir
   def render(assigns) do
     ~H"""
-      <.js_app
+      <.js_component
         id="my-counter"
         component="Counter"
         props={%{counter: @counter}}
@@ -57,7 +57,7 @@ To do the above you need configure the hook in your `app.js` like so:
 
 ```diff
 // ...
-import { createJsApps } from "komodo";
+import { createJsComponents } from "komodo";
 +import createSvelteApp from "komodo-svelte";
 +import Counter from "path/to/svelte/counter/component.svelte";
 // ...
@@ -66,7 +66,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   // ...
   hooks: {
     // ...
-    komodo: createJsApps({
+    komodo: createJsComponents({
       // ...
 +      Counter: createSvelteApp(Counter, {
 +        // not needed if you don't need to map callback params

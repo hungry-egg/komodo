@@ -14,7 +14,7 @@ defmodule Komodo.Components do
 
   would be rendered from a live view as
   ```heex
-  <.js_app name="MyComponent" props={%{count: 43}} callbacks={%{onIncrement: "increment"}} />
+  <.js_component name="MyComponent" props={%{count: 43}} callbacks={%{onIncrement: "increment"}} />
   ```
   where `"increment"` is the event name sent back to the live view.
   """
@@ -26,7 +26,7 @@ defmodule Komodo.Components do
   attr(:tag_name, :string, default: "div")
   attr(:rest, :global)
 
-  def js_app(assigns) do
+  def js_component(assigns) do
     json_lib = Phoenix.json_library()
     data_props = json_lib.encode!(assigns.props)
 
@@ -54,19 +54,19 @@ defmodule Komodo.Components do
   end
 
   @doc """
-  Not to be used directly - this is used by the defjsapp macro
+  Not to be used directly - this is used by the defjscomponent macro
 
   ```heex
-  <.js_app_alt_interface __name__="MyApp" prop1={3} @changed="handle_changed" />
+  <.js_component_alt_interface __name__="MyApp" prop1={3} @changed="handle_changed" />
   ```
 
   is equivalent to
 
   ```heex
-  <.js_app name="MyApp" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
+  <.js_component name="MyApp" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
   ```
   """
-  def js_app_alt_interface(assigns = %{__name__: name}) do
+  def js_component_alt_interface(assigns = %{__name__: name}) do
     {callbacks, props} =
       assigns
       |> assigns_to_attributes()
@@ -84,7 +84,7 @@ defmodule Komodo.Components do
       )
 
     ~H"""
-    <.js_app name={@name} props={@props} callbacks={@callbacks} />
+    <.js_component name={@name} props={@props} callbacks={@callbacks} />
     """
   end
 

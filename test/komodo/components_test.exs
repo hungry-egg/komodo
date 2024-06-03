@@ -4,22 +4,22 @@ defmodule Komodo.ComponentsTest do
 
   import Phoenix.LiveViewTest
 
-  import Komodo.Components, only: [js_app: 1, js_app_alt_interface: 1]
+  import Komodo.Components, only: [js_component: 1, js_component_alt_interface: 1]
 
-  describe "js_app/1" do
-    defp render_js_app(args) when is_list(args) do
-      html = render_component(&js_app/1, args)
+  describe "js_component/1" do
+    defp render_js_component(args) when is_list(args) do
+      html = render_component(&js_component/1, args)
       [{tag_name, attrs, _}] = Floki.parse_document!(html)
       {tag_name, Enum.into(attrs, %{})}
     end
 
     test "it renders an empty div (non self-closing)" do
-      html = render_component(&js_app/1, name: "MyApp")
+      html = render_component(&js_component/1, name: "MyApp")
       assert html =~ ~r(^<div[^>]*></div>$)
     end
 
     test "it renders the correct attrs" do
-      {_, attrs} = render_js_app(name: "MyApp")
+      {_, attrs} = render_js_component(name: "MyApp")
 
       assert %{
                "data-name" => "MyApp",
@@ -32,7 +32,7 @@ defmodule Komodo.ComponentsTest do
 
     test "json stringifies props" do
       {_, %{"data-props" => data_props}} =
-        render_js_app(
+        render_js_component(
           name: "MyApp",
           props: %{list: [1, 2, 3], map: %{a: 1, b: 2}, string: "yay"}
         )
@@ -46,7 +46,7 @@ defmodule Komodo.ComponentsTest do
 
     test "json stringifies callbacks, complete with payload spec" do
       {_, %{"data-callbacks" => data_callbacks}} =
-        render_js_app(
+        render_js_component(
           name: "MyApp",
           callbacks: %{
             onEvent: "event",
@@ -63,17 +63,17 @@ defmodule Komodo.ComponentsTest do
     end
 
     test "it gives a default id" do
-      assert {_, %{"id" => id}} = render_js_app(name: "MyApp")
+      assert {_, %{"id" => id}} = render_js_component(name: "MyApp")
       assert id =~ ~r(^MyApp-\w+$)
     end
 
     test "it allows setting the id" do
-      assert {_, %{"id" => "my-id"}} = render_js_app(name: "MyApp", id: "my-id")
+      assert {_, %{"id" => "my-id"}} = render_js_component(name: "MyApp", id: "my-id")
     end
 
     test "it allows changing the element tag name" do
       assert {"section", _} =
-               render_js_app(
+               render_js_component(
                  name: "MyApp",
                  tag_name: "section"
                )
@@ -81,23 +81,23 @@ defmodule Komodo.ComponentsTest do
 
     test "it allows adding extra attributes" do
       assert {_, %{"class" => "some-class"}} =
-               render_js_app(
+               render_js_component(
                  name: "MyApp",
                  class: "some-class"
                )
     end
   end
 
-  describe "js_app_alt_interface" do
-    defp render_js_app_alt_interface(args) when is_list(args) do
-      html = render_component(&js_app_alt_interface/1, args)
+  describe "js_component_alt_interface" do
+    defp render_js_component_alt_interface(args) when is_list(args) do
+      html = render_component(&js_component_alt_interface/1, args)
       [{tag_name, attrs, _}] = Floki.parse_document!(html)
       {tag_name, Enum.into(attrs, %{})}
     end
 
     test "it splits props and callbacks using @ prefix" do
       {_, attrs} =
-        render_js_app_alt_interface(
+        render_js_component_alt_interface(
           __name__: "MyApp",
           prop1: %{some: "value"},
           prop2: ["another", "value"],

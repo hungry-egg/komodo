@@ -1,2 +1,2 @@
-export { createJsApps } from "./create-js-apps.js";
-export type { JsApp } from "./js-app.js";
+export { createJsComponents } from "./create-js-components.js";
+export type { JsComponent } from "./js-component.js";

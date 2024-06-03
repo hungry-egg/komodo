@@ -1,6 +1,6 @@
 import { describe, it, jest, beforeEach, expect } from "@jest/globals";
-import { JsApp } from "../src/js-app.js";
-import { createJsApps } from "../src/create-js-apps.js";
+import { JsComponent } from "../src/js-component.js";
+import { createJsComponents } from "../src/create-js-components.js";
 
 type El = {
   dataset: { name: string; props: string; callbacks: string };
@@ -14,10 +14,10 @@ type Hook = {
   destroyed: () => void;
 };
 
-describe("createJsApps", () => {
+describe("createJsComponents", () => {
   let hook: Hook;
-  let testApp: JsApp<{}>;
-  let emitEvent: Parameters<JsApp<any>["mount"]>[3];
+  let testApp: JsComponent<{}>;
+  let emitEvent: Parameters<JsComponent<any>["mount"]>[3];
 
   const props = {
     islands: [{ name: "Bali" }, { name: "Flores" }],
@@ -51,7 +51,7 @@ describe("createJsApps", () => {
         },
       },
       pushEvent: jest.fn(),
-      ...createJsApps({
+      ...createJsComponents({
         myApp: testApp,
       }),
     };

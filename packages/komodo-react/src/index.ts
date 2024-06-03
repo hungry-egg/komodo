@@ -1,10 +1,10 @@
 import { createElement } from "react";
 import { Root, createRoot } from "react-dom/client";
-import { JsApp } from "komodo";
+import { JsComponent } from "komodo";
 
 const createReactApp = (
   Component
-): JsApp<{
+): JsComponent<{
   root: Root;
   callbackProps: Record<string, (...args: any[]) => void>;
 }> => ({

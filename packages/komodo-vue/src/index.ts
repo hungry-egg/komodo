@@ -1,9 +1,9 @@
 import { App, createApp, h, reactive } from "vue";
-import { JsApp } from "komodo";
+import { JsComponent } from "komodo";
 
 const createVueApp = (
   Component
-): JsApp<{ app: App<Element>; props: Record<string, any> }> => ({
+): JsComponent<{ app: App<Element>; props: Record<string, any> }> => ({
   mount(el, initialProps, callbackNames, emit) {
     const callbackProps = callbackNames.reduce(
       (cp, name) => ({
