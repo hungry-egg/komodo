@@ -1,5 +1,7 @@
 defmodule Appipelago do
+  @readme_content File.read!("README.md")
+
   @moduledoc """
-  Documentation for `Appipelago`.
+  #{@readme_content}
   """
 end

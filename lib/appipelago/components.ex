@@ -3,6 +3,22 @@ defmodule Appipelago.Components do
 
   alias Appipelago.Helpers
 
+  @doc """
+  Function component for rendering javascript apps
+
+  It uses a "props-in, callbacks-out" data-flow, so for example a React component that is used in React like so:
+
+  ```js
+  <MyComponent count={43} onIncrement={() => handleIncrement()} />
+  ```
+
+  would be rendered from a live view as
+  ```heex
+  <.js_app name="MyComponent" props={%{count: 43}} callbacks={%{onIncrement: "increment"}} />
+  ```
+  where `"increment"` is the event name sent back to the live view.
+  """
+
   attr(:id, :string)
   attr(:name, :string, required: true)
   attr(:props, :map, default: %{})
@@ -40,11 +56,15 @@ defmodule Appipelago.Components do
   @doc """
   Not to be used directly - this is used by the defjsapp macro
 
+  ```heex
   <.js_app_alt_interface __name__="MyApp" prop1={3} @changed="handle_changed" />
+  ```
 
   is equivalent to
 
+  ```heex
   <.js_app name="MyApp" props={%{prop1: 3}} callbacks={%{changed: "handle_changed"}} />
+  ```
   """
   def js_app_alt_interface(assigns = %{__name__: name}) do
     {callbacks, props} =
