@@ -37,7 +37,6 @@ defmodule PhxExample.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.20.2"},
       {:floki, ">= 0.30.0", only: :test},
-      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
       {:heroicons,
        github: "tailwindlabs/heroicons",
@@ -62,12 +61,12 @@ defmodule PhxExample.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "assets.setup", "assets.build"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      setup: ["deps.get", "cmd --cd assets npm install"],
+      "assets.setup": ["tailwind.install --if-missing"],
       "assets.build": ["tailwind phx_example", "esbuild phx_example"],
       "assets.deploy": [
         "tailwind phx_example --minify",
-        "esbuild phx_example --minify",
+        "cmd --cd assets node build.js --deploy",
         "phx.digest"
       ]
     ]
