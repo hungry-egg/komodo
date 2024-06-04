@@ -24,7 +24,7 @@ let opts = {
   target: "es2017",
   outdir: "../priv/static/assets",
   external: ["*.css", "fonts/*", "images/*"],
-  nodePaths: ["../deps"],
+  nodePaths: ["node_modules", "../deps"],
   loader: loader,
   plugins: plugins,
 };

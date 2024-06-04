@@ -23,7 +23,6 @@
 
 <style scoped>
   .container {
-    background: yellow;
     width: 200px;
     height: 200px;
     position: relative;
