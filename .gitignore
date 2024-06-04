@@ -28,3 +28,4 @@ phx_frontend-*.tar
 # Node stuff
 node_modules
 
+.elixir_ls
