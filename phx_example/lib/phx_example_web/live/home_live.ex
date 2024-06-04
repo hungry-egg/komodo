@@ -26,6 +26,7 @@ defmodule PhxExampleWeb.HomeLive do
         <section>
           <h2 class="font-semibold mb-2">React component</h2>
           <.js_component
+            id="react-map"
             name="ReactMap"
             props={%{marker: @marker}}
             callbacks={%{onSelectCoord: {"selected_coord", ["&1.x", "&1.y"]}}}
@@ -34,14 +35,16 @@ defmodule PhxExampleWeb.HomeLive do
         <section>
           <h2 class="font-semibold mb-2">Vue component</h2>
           <.js_component
+            id="vue-map"
             name="VueMap"
             props={%{marker: @marker}}
             callbacks={%{selectCoord: {"selected_coord", ["&1", "&2"]}}}
           />
         </section>
         <section>
-          <h2 class="font-semibold mb-2">Vue component</h2>
+          <h2 class="font-semibold mb-2">Svelte component</h2>
           <.js_component
+            id="svelte-map"
             name="SvelteMap"
             props={%{marker: @marker}}
             callbacks={%{selectCoord: {"selected_coord", "&1.detail"}}}
