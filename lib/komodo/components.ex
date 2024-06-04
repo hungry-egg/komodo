@@ -19,7 +19,7 @@ defmodule Komodo.Components do
   where `"increment"` is the event name sent back to the live view.
   """
 
-  attr(:id, :string)
+  attr(:id, :string, required: true)
   attr(:name, :string, required: true)
   attr(:props, :map, default: %{})
   attr(:callbacks, :map, default: %{})
@@ -42,7 +42,7 @@ defmodule Komodo.Components do
     ~H"""
     <.dynamic_tag
       name={@tag_name}
-      id={assigns[:id] || generate_id(@name)}
+      id={@id}
       phx-hook="komodo"
       phx-update="ignore"
       data-name={@name}
@@ -51,9 +51,5 @@ defmodule Komodo.Components do
       {@rest}
     ></.dynamic_tag>
     """
-  end
-
-  defp generate_id(prefix) do
-    "#{prefix}-#{System.unique_integer([:positive]) |> Integer.to_string(36)}"
   end
 end
