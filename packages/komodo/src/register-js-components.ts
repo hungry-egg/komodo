@@ -1,4 +1,4 @@
-import { extractFromObject } from "./extract-from-object.js";
+import { extractFromObject } from "./helpers/extract-from-object.js";
 import { JsComponent } from "./js-component.js";
 
 /**

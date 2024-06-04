@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { extractFromObject } from "../src/extract-from-object.js";
+import { extractFromObject } from "../../src/helpers/extract-from-object.js";
 
 describe("extractFromObject", () => {
   it("extracts correctly given a string path spec", () => {
