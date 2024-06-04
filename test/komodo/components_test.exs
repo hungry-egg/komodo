@@ -4,7 +4,7 @@ defmodule Komodo.ComponentsTest do
 
   import Phoenix.LiveViewTest
 
-  import Komodo.Components, only: [js_component: 1, js_component_alt_interface: 1]
+  import Komodo.Components, only: [js_component: 1]
 
   describe "js_component/1" do
     defp render_js_component(args) when is_list(args) do
@@ -85,43 +85,6 @@ defmodule Komodo.ComponentsTest do
                  name: "MyComponent",
                  class: "some-class"
                )
-    end
-  end
-
-  describe "js_component_alt_interface" do
-    defp render_js_component_alt_interface(args) when is_list(args) do
-      html = render_component(&js_component_alt_interface/1, args)
-      [{tag_name, attrs, _}] = Floki.parse_document!(html)
-      {tag_name, Enum.into(attrs, %{})}
-    end
-
-    test "it splits props and callbacks using @ prefix" do
-      {_, attrs} =
-        render_js_component_alt_interface(
-          __name__: "MyComponent",
-          prop1: %{some: "value"},
-          prop2: ["another", "value"],
-          "@callback1": "handler1",
-          "@callback2": {"handler2", "&1"}
-        )
-
-      assert %{
-               "data-name" => "MyComponent",
-               "data-props" => data_props,
-               "data-callbacks" => data_callbacks,
-               "phx-hook" => "komodo",
-               "phx-update" => "ignore"
-             } = attrs
-
-      assert Jason.decode!(data_props) == %{
-               "prop1" => %{"some" => "value"},
-               "prop2" => ["another", "value"]
-             }
-
-      assert Jason.decode!(data_callbacks) == %{
-               "callback1" => ["handler1"],
-               "callback2" => ["handler2", "0"]
-             }
     end
   end
 end
