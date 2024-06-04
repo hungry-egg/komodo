@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "komodo": "file:../../packages/komodo",
+    "komodo-react": "file:../../packages/komodo-react",
+    "komodo-vue": "file:../../packages/komodo-vue",
+    "komodo-svelte": "file:../../packages/komodo-svelte",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.21.4",
+    "esbuild-plugin-vue3": "^0.4.2",
+    "esbuild-svelte": "^0.8.1",
+    "svelte": "^4.2.17"
+  }
+}

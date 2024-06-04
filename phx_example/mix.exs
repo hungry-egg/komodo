@@ -49,7 +49,8 @@ defmodule PhxExample.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:komodo, path: ".."}
     ]
   end
 
@@ -62,8 +63,8 @@ defmodule PhxExample.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "cmd --cd assets npm install"],
-      "assets.setup": ["tailwind.install --if-missing"],
-      "assets.build": ["tailwind phx_example", "esbuild phx_example"],
+      "assets.setup": ["tailwind.install --if-missing", "cmd --cd assets npm install"],
+      "assets.build": ["tailwind phx_example", "cmd --cd assets node build.js"],
       "assets.deploy": [
         "tailwind phx_example --minify",
         "cmd --cd assets node build.js --deploy",

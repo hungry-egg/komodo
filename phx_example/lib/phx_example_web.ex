@@ -85,6 +85,8 @@ defmodule PhxExampleWeb do
       # Core UI components and translation
       import PhxExampleWeb.CoreComponents
 
+      import Komodo.Components
+
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 

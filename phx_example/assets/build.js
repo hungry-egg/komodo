@@ -1,4 +1,6 @@
 const esbuild = require("esbuild");
+const vuePlugin = require("esbuild-plugin-vue3");
+const sveltePlugin = require("esbuild-svelte");
 
 const args = process.argv.slice(2);
 const watch = args.includes("--watch");
@@ -10,6 +12,8 @@ const loader = {
 
 const plugins = [
   // Add and configure plugins here
+  vuePlugin(),
+  sveltePlugin(),
 ];
 
 // Define esbuild options

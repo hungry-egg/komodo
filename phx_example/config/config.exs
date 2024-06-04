@@ -27,8 +27,8 @@ config :tailwind,
   phx_example: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/app.css
-      --output=../priv/static/assets/app.css
+      --input=css/tailwind.css
+      --output=../priv/static/assets/tailwind.css
     ),
     cd: Path.expand("../assets", __DIR__)
   ]
