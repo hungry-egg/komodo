@@ -21,10 +21,11 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
-import { registerJsComponents } from "komodo";
+import { registerJsComponents, componentFromElement } from "komodo";
 import componentFromReact from "komodo-react";
 import componentFromSvelte from "komodo-svelte";
 import componentFromVue from "komodo-vue";
+import "./lit/map";
 import ReactMap from "./react/map";
 import SvelteMap from "./svelte/map.svelte";
 import VueMap from "./vue/map.vue";
@@ -37,6 +38,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
   hooks: {
     komodo: registerJsComponents({
+      CustomElementMap: componentFromElement("my-map"),
       ReactMap: componentFromReact(ReactMap),
       SvelteMap: componentFromSvelte(SvelteMap),
       VueMap: componentFromVue(VueMap),

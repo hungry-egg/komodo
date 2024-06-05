@@ -11,17 +11,25 @@ defmodule PhxExampleWeb.HomeLive do
     ~H"""
     <div class="flex flex-col gap-y-3">
       <h1 class="font-bold text-xl">LiveView page rendering multiple frontend apps</h1>
+      <section>
+        <p class="font-semibold mb-2 flex space-x-4 items-center">
+          <span>
+            LiveView state: <span class="inline-flex w-32">(x: <%= Enum.at(@marker,0) %>, y: <%= Enum.at(@marker, 1) %>)</span>
+          </span>
+          <button phx-click="update_marker" class="p-2 bg-slate-300 rounded">
+            Push new coord from liveview
+          </button>
+        </p>
+      </section>
       <div class="grid grid-cols-2 gap-y-4">
         <section>
-          <h2 class="font-semibold mb-2">LiveView state (x, y)</h2>
-          <div class="flex flex-col gap-3 items-center max-w-48">
-            <p>
-              <span>(<%= Enum.join(@marker, ", ") %>)</span>
-            </p>
-            <button phx-click="update_marker" class="p-2 bg-slate-300 rounded">
-              Push new coord from liveview
-            </button>
-          </div>
+          <h2 class="font-semibold mb-2">Custom element component</h2>
+          <.js_component
+            id="custom-element-map"
+            name="CustomElementMap"
+            props={%{marker: @marker}}
+            callbacks={%{"select-coord": {"selected_coord", ["&1.detail.x", "&1.detail.y"]}}}
+          />
         </section>
         <section>
           <h2 class="font-semibold mb-2">React component</h2>
