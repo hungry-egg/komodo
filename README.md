@@ -21,7 +21,7 @@ For example, if you were to use a React component like so:
 
 then you could use this component from your LiveView like so:
 
-```ex
+```heex
 def render(assigns) do
   ~H"""
   <.js_component
