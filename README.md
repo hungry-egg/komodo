@@ -42,7 +42,7 @@ def handle_event("update_user", new_user, socket) do
 end
 ```
 
-For this to work, a Javascript component with the name `"MyReactComponent"` needs to be registered (see [Setup](#setup) below), using an adapter for the specific framework (in this case React).
+This assumes a Javascript component with the name `"MyReactComponent"` has been registered (see [Setup](#setup) below), using an adapter for the specific framework (in this case React).
 
 Adapters are small pieces of Javascript code that wrap a framework component into a standardized JS component that is compatible with the code above.
 
@@ -127,11 +127,11 @@ It makes use of the `&` to specify the argument number (which should already be 
 
 For example, `"&1"` means the first argument, and `"&1.users[2]"` means the 3rd item in the users property of the first argument.
 
-This should be intuitive as it follows Elixir/Javascript convention, however note that the argument number `&1` starts from 1 whereas the array access index `[2]` starts from 0, as should be familiar.
+This should be intuitive as it follows Elixir/Javascript convention (note that the argument number `&1` starts from 1 whereas the array access index `[2]` starts from 0).
 
 This will be better understood with an example...
 
-supposing the javascript component has a callback `onChangeTrack` that emits two arguments:
+Supposing the javascript component has a callback `onChangeTrack` that emits two arguments:
 
 - the new song `{title: ""El Pocito"}`
 - the artist `{name: "Vicente Amigo"}`
@@ -142,7 +142,7 @@ i.e. in javascript you would do something like
 onChangeTrack={(newSong, newArtist) => handleChangeTrack(...)}
 ```
 
-Then the liveview will be called with
+Then the liveview will have
 
 ```ex
 def render(assigns) do
@@ -175,13 +175,152 @@ Many frameworks will only have one argument so you will often be using `"&1.xxx"
 
 ## Supported adapters
 
-See documentation for the particular adapter you're using, e.g. one of
+Simple adapters for the following are provided
 
-- [Svelte](https://github.com/hungry-egg/komodo/tree/main/packages/svelte)
-- [React](https://github.com/hungry-egg/komodo/tree/main/packages/react)
-- [Vue](https://github.com/hungry-egg/komodo/tree/main/packages/vue)
+- [Svelte](https://github.com/hungry-egg/komodo/tree/main/packages/komodo-svelte)
+- [React](https://github.com/hungry-egg/komodo/tree/main/packages/komodo-react)
+- [Vue](https://github.com/hungry-egg/komodo/tree/main/packages/komodo-vue)
+
+Additionally, the `komodo` package provides an adapter for working with custom elements.
+
+## Custom elements adapter
+
+Some libraries like Angular (as well as Vue, Svelte) can compile to the web browser-standard [custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components). A simple adapter is provided for using these.
+
+### Example
+
+A custom element `message-log` that takes a `messages` prop and emits a custom event (using the native `dispatchEvent`) `remove-message` could be used from liveview with
+
+```ex
+def render(assigns) do
+  ~H"""
+  <.js_component
+    id="msg-log"
+    name="MessageLog"
+    props={%{
+      messages: @messages
+    }}
+    callbacks={%{
+      "remove-message": {"remove_message", "&1.detail.id"}
+    }}
+  />
+  """
+end
+
+def handle_event("remove_message", message_id, socket) do
+  // ...
+end
+```
+
+This would be registered in `app.js` with:
+
+```diff
+// ...
++ import { registerJsComponents, componentFromElement } from "komodo";
+
+// ...
+
+let liveSocket = new LiveSocket("/live", Socket, {
+  // ...
+  hooks: {
++    komodo: registerJsComponents({
++      MessageLog: componentFromElement("message-log")
++    })
+  }
+});
+
+// ...
+```
+
+Note that depending on whether this is already done for you or not you may also need to [register the custom element](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define) with the browser, e.g. in `app.js`:
+
+```
+window.customElements.define("message-log", MessageLogElement);
+```
 
 ## Custom Adapters
 
 Adapters for each framework are small and easy to write for new libraries.
-TODO: doc here.
+Everything registered with the `registerJsComponents` hook
+
+```js
+komodo: registerJsComponents({
+  MyComponent: MyComponent,
+});
+```
+
+like `MyComponent` above, has the form
+
+```js
+{
+  // Called once on mount
+  mount: ( el, initialProps, callbackNames, emit) {
+    // el:
+    // the container element, a div by default
+
+    // initialProps:
+    // a {propName: value} lookup where values can anything JSON-friendly
+
+    // callbackNames:
+    // If <.js_component.../> was called with callbacks={%{cb1: ..., cb2: ...}} then this will
+    // be the array of names only, i.e. ["cb1", "cb2"]
+
+    // emit:
+    // a standard interface for callbacks, e.g. emit("callbackName", arg1, arg2)
+    // In general the adapter won't change the callback name / arguments when calling this
+    // Any mapping to the parameters received by handle_event is done in the liveview
+
+    // Whatever you return from mount will be passed as the first arg to update and unmount
+    return {
+      some: "context"
+    }
+  },
+
+  // Called whenever props change
+  update: (context, newProps) {
+    // context:
+    // Whatever was returned from mount()
+
+    // newProps:
+    // the new props (all of them, including unchanged ones), as a {propName: value} lookup
+  }
+
+  // Called on unmount for cleaning up resources
+  unmount: (context) {
+    // context:
+    // Whatever was returned from mount()
+  }
+}
+```
+
+A Typescript type, [JsComponent](packages/komodo/src/js-component.ts), is given that can be used when working with Typescript.
+
+The easiest way to create an adapter for another library is probably looking at one of the other adapters and doing something similar.
+
+If creating an adapter for some framework "Framework-X", then the convention would be to create a factory function
+
+```ts
+const componentFromFrameworkX: (Component: FrameworkXComponent) => JsComponent;
+```
+
+that could be used in `app.js` like so:
+
+```diff
+// ...
++ import { registerJsComponents } from "komodo";
++ import componentFromFrameworkX from "komodo-framework-x";
++ import FrameworkXSlider from "path/to/framework-x/slider";
+
+// ...
+
+let liveSocket = new LiveSocket("/live", Socket, {
+  // ...
+  hooks: {
++    komodo: registerJsComponents({
++      Slider: componentFromFrameworkX(FrameworkXSlider)
++    })
+  }
+});
+
+// ...
+```
