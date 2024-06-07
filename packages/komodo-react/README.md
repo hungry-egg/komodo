@@ -4,10 +4,10 @@
 
 - Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js components with Phoenix Liveview.
 
-- Add the npm dependency `komodo-react` in the `assets` folder, e.g.
+- Add the npm dependency `komodo-react` as well as `react` and `react-dom` in the `assets` folder, e.g.
 
 ```
-npm install --save komodo-react --prefix assets
+npm install --save komodo-react react react-dom --prefix assets
 ```
 
 ## Usage
@@ -30,12 +30,12 @@ then we can render it from a LiveView with
         id="my-counter"
         component="Counter"
         props={%{counter: @counter}}
-        callbacks={%{onIncrement: "increment"}}
+        callbacks={%{onIncrement: {"increment", "&1"}}}
       />
     """
   end
 
-  def handle_event("increment", %{amount: amount}, socket) do
+  def handle_event("increment", amount, socket) do
     IO.puts("Increment by #{amount}")
     {:noreply, socket}
   end
@@ -56,22 +56,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
     // ...
     komodo: registerJsComponents({
       // ...
-+      Counter: componentFromReact(Counter, {
-+        // not needed if you don't need to map callback params
-+        callbackParams: {
-+          onIncrement: (amount) => ({ amount }),
-+        },
-+      }),
++      Counter: componentFromReact(Counter)
     }),
   },
 });
-
-// ...
-```
-
-If you don't map `callbackParams` then `handle_event` will be called with an empty map `%{}`.
-In that case you can omit the options arg to componentFromReact in `app.js`:
-
-```js
-Counter: componentFromReact(Counter);
 ```
