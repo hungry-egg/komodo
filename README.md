@@ -21,7 +21,7 @@ For example, if you were to use a React component like so:
 
 then you could use this component from your LiveView like so:
 
-```ex
+```elixir
 def render(assigns) do
   ~H"""
   <.js_component
@@ -144,7 +144,7 @@ onChangeTrack={(newSong, newArtist) => handleChangeTrack(...)}
 
 Then the liveview will have
 
-```ex
+```elixir
 def render(assigns) do
   ~H"""
   <.js_component
@@ -191,7 +191,7 @@ Some libraries like Angular (as well as Vue, Svelte) can compile to the web brow
 
 A custom element `message-log` that takes a `messages` prop and emits a custom event (using the native `dispatchEvent`) `remove-message` could be used from liveview with
 
-```ex
+```elixir
 def render(assigns) do
   ~H"""
   <.js_component
