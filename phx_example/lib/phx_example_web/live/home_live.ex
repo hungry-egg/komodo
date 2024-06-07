@@ -17,7 +17,7 @@ defmodule PhxExampleWeb.HomeLive do
             LiveView state: <span class="inline-flex w-32">(x: <%= Enum.at(@marker,0) %>, y: <%= Enum.at(@marker, 1) %>)</span>
           </span>
           <button phx-click="update_marker" class="p-2 bg-slate-300 rounded">
-            Push new coord from liveview
+            Push new coordinate from liveview
           </button>
         </p>
       </section>
