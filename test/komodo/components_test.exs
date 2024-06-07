@@ -65,22 +65,44 @@ defmodule Komodo.ComponentsTest do
              }
     end
 
-    test "it allows changing the element tag name" do
-      assert {"section", _} =
+    test "it allows using a span as the container" do
+      assert {"span", attrs} =
                render_js_component(
                  id: "my-component",
                  name: "MyComponent",
-                 tag_name: "section"
+                 tag_name: :span
+               )
+
+      assert %{
+               "id" => "my-component",
+               "data-name" => "MyComponent",
+               "data-props" => "{}",
+               "data-callbacks" => "{}",
+               "phx-hook" => "komodo",
+               "phx-update" => "ignore"
+             } = attrs
+    end
+
+    test "it allows styling the container" do
+      assert {_, %{"class" => "some-class", "style" => "some: style;"}} =
+               render_js_component(
+                 id: "my-component",
+                 name: "MyComponent",
+                 class: "some-class",
+                 style: "some: style;"
                )
     end
 
-    test "it allows adding extra attributes" do
-      assert {_, %{"class" => "some-class"}} =
-               render_js_component(
-                 id: "my-component",
-                 name: "MyComponent",
-                 class: "some-class"
-               )
+    test "sanity check that it produces valid html" do
+      html =
+        render_component(&js_component/1, %{
+          id: "id",
+          name: "name",
+          props: %{a: 1}
+        })
+
+      assert html =~ ~r(data-props="{&quot;a&quot;:1}")
+      assert html =~ ~r(data-callbacks="{}")
     end
   end
 end

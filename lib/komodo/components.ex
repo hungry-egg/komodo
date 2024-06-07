@@ -19,7 +19,7 @@ defmodule Komodo.Components do
   where `"increment"` is the event name sent back to the live view.
   """
 
-  attr(:tag_name, :string, default: "div")
+  attr(:tag_name, :atom, default: :div, values: [:div, :span])
   attr(:id, :string, required: true)
   attr(:name, :string, required: true)
   attr(:props, :map, default: %{})
@@ -30,42 +30,50 @@ defmodule Komodo.Components do
   def js_component(assigns) do
     json_lib = Phoenix.json_library()
 
-    tag_name = assigns.tag_name
-
-    tag =
-      case Phoenix.HTML.html_escape(tag_name) do
-        {:safe, ^tag_name} ->
-          tag_name
-
-        {:safe, _escaped} ->
-          raise ArgumentError,
-                "expected js_component tag_name to be safe HTML, got: #{inspect(tag_name)}"
-      end
-
     assigns =
       assigns
       |> assign(
-        tag: tag,
-        data_props: json_lib.encode!(assigns.props),
+        data_props: assigns.props |> json_lib.encode!(),
         data_callbacks:
-          json_lib.encode!(map_values(assigns.callbacks, &Helpers.normalise_callback_spec/1))
+          assigns.callbacks
+          |> map_values(&Helpers.normalise_callback_spec/1)
+          |> json_lib.encode!()
       )
       # this avoids unnecessary updates being sent - in any case the callback spec
       # is only used on mount in javascript so any subsequent updates would be ignored anyway
-      |> mark_as_unchanged([:tag, :callbacks, :data_callbacks])
+      |> mark_as_unchanged([:data_callbacks])
 
-    ~H"""
-      <%= {:safe, [?<, @tag]} %>
-        id=<%= @id %>
-        class=<%= @class %>
-        style=<%= @style %>
-        phx-hook="komodo"
-        phx-update="ignore"
-        data-props=<%= @data_props %>
-        data-name=<%= @name %>
-        data-callbacks=<%= @data_callbacks %>
-      <%= {:safe, [?>]} %><%= {:safe, [?<, ?/, @tag, ?>]} %>
-    """
+    # Annoyingly using dynamic_tag is not so efficient in terms of what it sends so
+    # we'll make do with duplicating this code for divs and spans
+    case assigns.tag_name do
+      :div ->
+        ~H"""
+        <div
+          phx-hook="komodo"
+          phx-update="ignore"
+          data-name={@name}
+          id={@id}
+          class={@class}
+          style={@style}
+          data-props={@data_props}
+          data-callbacks={@data_callbacks}
+        />
+        """
+
+      :span ->
+        ~H"""
+        <span
+          phx-hook="komodo"
+          phx-update="ignore"
+          data-name={@name}
+          id={@id}
+          class={@class}
+          style={@style}
+          data-props={@data_props}
+          data-callbacks={@data_callbacks}
+        />
+        """
+    end
   end
 
   # Remove the specified from keys from the assigns __changed__  object.
