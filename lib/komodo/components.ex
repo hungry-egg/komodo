@@ -43,37 +43,19 @@ defmodule Komodo.Components do
       # is only used on mount in javascript so any subsequent updates would be ignored anyway
       |> mark_as_unchanged([:data_callbacks])
 
-    # Annoyingly using dynamic_tag is not so efficient in terms of what it sends so
-    # we'll make do with duplicating this code for divs and spans
-    case assigns.tag_name do
-      :div ->
-        ~H"""
-        <div
-          phx-hook="komodo"
-          phx-update="ignore"
-          data-name={@name}
-          id={@id}
-          class={@class}
-          style={@style}
-          data-props={@data_props}
-          data-callbacks={@data_callbacks}
-        />
-        """
-
-      :span ->
-        ~H"""
-        <span
-          phx-hook="komodo"
-          phx-update="ignore"
-          data-name={@name}
-          id={@id}
-          class={@class}
-          style={@style}
-          data-props={@data_props}
-          data-callbacks={@data_callbacks}
-        />
-        """
-    end
+    # This is more efficient in terms of diffs than using dynamic_tag
+    ~H"""
+    <%= {:safe, [?<, Atom.to_string(@tag_name)]} %>
+      phx-hook="komodo"
+      phx-update="ignore"
+      data-name="<%= @name %>"
+      id="<%= @id %>"
+      class="<%= @class %>"
+      style="<%= @style %>"
+      data-props="<%= @data_props %>"
+      data-callbacks="<%= @data_callbacks %>"
+    <%= {:safe, [?>]} %><%= {:safe, [?<, ?/, Atom.to_string(@tag_name), ?>]} %>
+    """
   end
 
   # Remove the specified from keys from the assigns __changed__  object.
