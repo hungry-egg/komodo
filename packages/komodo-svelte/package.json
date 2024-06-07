@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/svelte.git"
+    "url": "git+https://github.com/hungry-egg/komodo.git"
   },
   "keywords": [
     "elixir",
@@ -24,9 +24,9 @@
   "author": "Mark Evans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte/issues"
+    "url": "https://github.com/hungry-egg/komodo/issues"
   },
-  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/svelte#readme",
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/komodo-svelte#readme",
   "devDependencies": {
     "komodo": "workspace:^",
     "svelte": "^4.2.15",

@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hungry-egg/komodo/tree/main/packages/vue.git"
+    "url": "git+https://github.com/hungry-egg/komodo.git"
   },
   "keywords": [
     "elixir",
@@ -24,9 +24,9 @@
   "author": "Mark Evans",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hungry-egg/komodo/tree/main/packages/vue/issues"
+    "url": "https://github.com/hungry-egg/komodo/issues"
   },
-  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/vue#readme",
+  "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/komodo-vue#readme",
   "devDependencies": {
     "komodo": "workspace:^",
     "typescript": "^5.4.5",
