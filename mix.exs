@@ -47,7 +47,7 @@ defmodule Komodo.MixProject do
 
   defp docs do
     [
-      main: "README",
+      main: "readme",
       assets: "assets",
       extras: ["README.md"]
     ]
