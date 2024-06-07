@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "komodo": "file:../../packages/komodo",
+    "komodo": "file:../..",
     "komodo-react": "file:../../packages/komodo-react",
     "komodo-svelte": "file:../../packages/komodo-svelte",
     "komodo-vue": "file:../../packages/komodo-vue",
