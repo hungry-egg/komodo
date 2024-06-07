@@ -12,7 +12,9 @@ defmodule Komodo.MixProject do
       deps: deps(),
       description: "Helpers for rendering components from front-end frameworks in Phoenix",
       package: package(),
-      source_url: @git_url
+      source_url: @git_url,
+      homepage_url: @git_url,
+      docs: docs()
     ]
   end
 
@@ -40,6 +42,14 @@ defmodule Komodo.MixProject do
         ~w(lib packages/komodo/dist package.json .formatter.exs mix.exs README.md LICENSE.txt),
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => @git_url}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "README",
+      assets: "assets",
+      extras: ["README.md"]
     ]
   end
 end
