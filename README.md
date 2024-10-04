@@ -57,7 +57,7 @@ This package is [on Hex](https://hexdocs.pm/komodo), so you can add`komodo` to y
 ```elixir
 def deps do
   [
-    {:komodo, "~> 0.1.1"}
+    {:komodo, "~> 0.2.0"}
   ]
 end
 ```
