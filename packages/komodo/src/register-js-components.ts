@@ -1,4 +1,4 @@
-import { extractFromObject } from "./helpers/extract-from-object.js";
+import { parsePayload } from "./helpers/parse-payload.js";
 import { JsComponent } from "./js-component.js";
 
 /**
@@ -24,7 +24,7 @@ export const registerJsComponents = (
       Object.keys(callbacks),
       (callbackName: string, ...args: any[]) => {
         const [eventName, payloadSpec] = callbacks[callbackName];
-        const payload = extractFromObject(args, payloadSpec);
+        const payload = parsePayload(payloadSpec, args);
         this.pushEvent(eventName, payload);
       }
     );

@@ -1,8 +1,6 @@
 defmodule Komodo.Components do
   use Phoenix.Component
 
-  alias Komodo.Helpers
-
   @doc """
   Function component for rendering javascript components
 
@@ -36,7 +34,8 @@ defmodule Komodo.Components do
         data_props: assigns.props |> json_lib.encode!(),
         data_callbacks:
           assigns.callbacks
-          |> map_values(&Helpers.normalise_callback_spec/1)
+          |> Enum.map(fn {k, v} -> {k, callback_spec_to_list(v)} end)
+          |> Enum.into(%{})
           |> json_lib.encode!()
       )
       # this avoids unnecessary updates being sent - in any case the callback spec
@@ -58,6 +57,12 @@ defmodule Komodo.Components do
     """
   end
 
+  def arg(num \\ 1, path \\ []) when is_number(num) and is_list(path) do
+    %{__arg__: num, path: path}
+  end
+
+  # ------------------------------------------------------------------- #
+
   # Remove the specified from keys from the assigns __changed__  object.
   # This tells heex no updates are to be sent down the wire for these assigns
   defp mark_as_unchanged(assigns = %{__changed__: changed = %{}}, keys) when is_list(keys) do
@@ -66,8 +71,8 @@ defmodule Komodo.Components do
 
   defp mark_as_unchanged(assigns = %{__changed__: nil}, keys) when is_list(keys), do: assigns
 
-  defp map_values(map, func) when is_map(map) and is_function(func) do
-    Enum.map(map, fn {k, v} -> {k, func.(v)} end)
-    |> Enum.into(%{})
-  end
+  # {"eventName", "someArg"} --> ["eventName", "someArg"]
+  defp callback_spec_to_list(cs) when is_tuple(cs), do: Tuple.to_list(cs)
+  # "eventName" --> ["eventName"]
+  defp callback_spec_to_list(cs) when is_binary(cs), do: [cs]
 end

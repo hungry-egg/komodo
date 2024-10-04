@@ -28,7 +28,7 @@ defmodule PhxExampleWeb.HomeLive do
             id="custom-element-map"
             name="CustomElementMap"
             props={%{marker: @marker}}
-            callbacks={%{"select-coord": {"selected_coord", ["&1.detail.x", "&1.detail.y"]}}}
+            callbacks={%{"select-coord": {"selected_coord", [arg(1, [:detail, :x]), arg(1, [:detail, :y])]}}}
           />
         </section>
         <section>
@@ -37,7 +37,7 @@ defmodule PhxExampleWeb.HomeLive do
             id="react-map"
             name="ReactMap"
             props={%{marker: @marker}}
-            callbacks={%{onSelectCoord: {"selected_coord", ["&1.x", "&1.y"]}}}
+            callbacks={%{onSelectCoord: {"selected_coord", [arg(1, [:x]), arg(1, [:y])]}}}
           />
         </section>
         <section>
@@ -46,7 +46,7 @@ defmodule PhxExampleWeb.HomeLive do
             id="vue-map"
             name="VueMap"
             props={%{marker: @marker}}
-            callbacks={%{selectCoord: {"selected_coord", ["&1", "&2"]}}}
+            callbacks={%{selectCoord: {"selected_coord", [arg(1), arg(2)]}}}
           />
         </section>
         <section>
@@ -55,7 +55,7 @@ defmodule PhxExampleWeb.HomeLive do
             id="svelte-map"
             name="SvelteMap"
             props={%{marker: @marker}}
-            callbacks={%{selectCoord: {"selected_coord", "&1.detail"}}}
+            callbacks={%{selectCoord: {"selected_coord", arg(1, [:detail])}}}
           />
         </section>
       </div>
@@ -64,6 +64,8 @@ defmodule PhxExampleWeb.HomeLive do
   end
 
   def handle_event("selected_coord", marker, socket) do
+    # dbg(marker)
+    # {:noreply, socket}
     {:noreply, socket |> assign(marker: marker)}
   end
 

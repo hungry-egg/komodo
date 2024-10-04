@@ -30,7 +30,7 @@ then we can render it from a LiveView with
         id="my-counter"
         component="Counter"
         props={%{counter: @counter}}
-        callbacks={%{onIncrement: {"increment", "&1"}}}
+        callbacks={%{onIncrement: {"increment", arg()}}}
       />
     """
   end

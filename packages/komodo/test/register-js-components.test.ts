@@ -1,6 +1,7 @@
 import { describe, it, jest, beforeEach, expect } from "@jest/globals";
 import { JsComponent } from "../src/js-component.js";
 import { registerJsComponents } from "../src/register-js-components.js";
+import { argSpec } from "../src/helpers/arg-spec.js";
 
 type El = {
   dataset: { name: string; props: string; callbacks: string };
@@ -26,7 +27,14 @@ describe("registerJsComponents", () => {
 
   const callbacks = {
     selectIndex: ["select_index"],
-    dayChanged: ["day_changed", { from: "0.day", to: "1.day" }],
+    dayChanged: [
+      "day_changed",
+      {
+        id: "my-component",
+        from: argSpec(1, ["day"]),
+        to: argSpec(2, ["day"]),
+      },
+    ],
   };
 
   beforeEach(() => {
@@ -77,6 +85,7 @@ describe("registerJsComponents", () => {
 
     emitEvent("dayChanged", { day: "Tues" }, { day: "Weds" });
     expect(hook.pushEvent).toHaveBeenCalledWith("day_changed", {
+      id: "my-component",
       from: "Tues",
       to: "Weds",
     });
