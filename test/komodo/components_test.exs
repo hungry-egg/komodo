@@ -4,7 +4,7 @@ defmodule Komodo.ComponentsTest do
 
   import Phoenix.LiveViewTest
 
-  import Komodo.Components, only: [js_component: 1]
+  import Komodo.Components
 
   describe "js_component/1" do
     defp render_js_component(args) when is_list(args) do
@@ -60,8 +60,8 @@ defmodule Komodo.ComponentsTest do
 
       assert Jason.decode!(data_callbacks) == %{
                "onEvent" => ["event"],
-               "onAnotherEvent" => ["another_event", "0.detail.0"],
-               "onYetAnotherEvent" => ["yet_another_event", %{"a" => "0.detail.0"}]
+               "onAnotherEvent" => ["another_event", "&1.detail[0]"],
+               "onYetAnotherEvent" => ["yet_another_event", %{"a" => "&1.detail[0]"}]
              }
     end
 
@@ -103,6 +103,20 @@ defmodule Komodo.ComponentsTest do
 
       assert html =~ ~r(data-props="{&quot;a&quot;:1}")
       assert html =~ ~r(data-callbacks="{}")
+    end
+  end
+
+  describe "arg" do
+    test "it converts into an arg structure that the Javascript side will recognise" do
+      assert arg(1) == %{__arg__: 1, path: []}
+    end
+
+    test "it includes a path if given" do
+      assert arg(2, [:how, "are", :you, 4]) == %{__arg__: 2, path: [:how, "are", :you, 4]}
+    end
+
+    test "it defaults to the first arg" do
+      assert arg() == %{__arg__: 1, path: []}
     end
   end
 end
