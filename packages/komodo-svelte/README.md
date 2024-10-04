@@ -54,7 +54,7 @@ then we can render it from a LiveView with
         id="my-counter"
         component="Counter"
         props={%{counter: @counter}}
-        callbacks={%{inc: {"increment", "&1.detail"}}}
+        callbacks={%{inc: {"increment", arg(1, [:detail])}}}
       />
     """
   end

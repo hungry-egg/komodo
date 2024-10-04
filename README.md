@@ -31,7 +31,7 @@ def render(assigns) do
       user: @user
     }}
     callbacks={%{
-      onChangeUser: {"update_user", "&1"}
+      onChangeUser: {"update_user", arg(1)}
     }}
   />
   """
@@ -122,14 +122,10 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 ## Callback parameters
 
-A string specification is used to tell `js_component` how to transform callback payloads into a `parameters` argument to send back to the liveview.
-It makes use of the `&` to specify the argument number (which should already be familiar to Elixir users), as well as `.` and `[]` to access nested data.
+Callback parameters can be a mixture of static values or something accessed from the args yielded by the Javascript callback, using the `arg/2` helper.
+For example, if the Javascript event yields a single `event` argument, then `%{id: "my-id", client_x: arg(1, [:clientX])}` will return params that look like `%{id: "my-id", client_x: 52}`, where `arg(1, [:clientX])` maps to the Javascript `event.clientX`.
 
-For example, `"&1"` means the first argument, and `"&1.users[2]"` means the 3rd item in the users property of the first argument.
-
-This should be intuitive as it follows Elixir/Javascript convention (note that the argument number `&1` starts from 1 whereas the array access index `[2]` starts from 0).
-
-This will be better understood with an example...
+Below are some more examples...
 
 Supposing the javascript component has a callback `onChangeTrack` that emits two arguments:
 
@@ -163,15 +159,16 @@ end
 
 The table below shows what to put in place of `???` to form the `parameters` argument given to `handle_event`.
 
-| Callback spec (`???`)                                      | `parameters`                                   | Notes                                       |
-| ---------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------- |
-| `"change_track"`                                           | `%{}`                                          | Defaults to an empty map                    |
-| `{"change_track", "&1"}`                                   | `%{"title" => "El Pocito"}`                    | The first argument                          |
-| `{"change_track", "&1.title"}`                             | `"El Pocito"`                                  | Something nested inside the first argument  |
-| `{"change_track", ["&1.title", "&2.name"]}`                | `["El Pocito", "Vicent Amigo"]`                | A list combining elements of both arguments |
-| `{"change_track", %{song: "&1.title", artist: "&2.name"}}` | `%{song: "El Pocito", artist: "Vicent Amigo"}` | A map combining elements of both arguments  |
+| Callback spec (`???`)                                      | `parameters`                        | Notes                                   |
+| ---------------------------------------------------------- | ----------------------------------- | --------------------------------------- |
+| `"change_track"`                                           | `%{}`                               | Defaults to an empty map                |
+| `{"change_track", arg(1)}`                                 | `%{"title" => "El Pocito"}`         | The first arg                           |
+| `{"change_track", arg()}`                                  | `%{"title" => "El Pocito"}`         | Defaults to the first arg               |
+| `{"change_track", arg(1, [:title])}`                       | `"El Pocito"`                       | Something nested inside the first arg   |
+| `{"change_track", ["my-id", arg(2, :name)]}`               | `["El Pocito", "Vicent Amigo"]`     | A list combining static values and args |
+| `{"change_track", %{id: "my-id", song: arg(1, [:title])}}` | `%{id: "my-id", song: "El Pocito"}` | A map combining static values and args  |
 
-Many frameworks will only have one argument so you will often be using `"&1.xxx"` etc.
+Many frameworks will only have one argument so you will often just be using `arg(1)` (or simply `arg()`) etc.
 
 ## Supported adapters
 
@@ -201,7 +198,7 @@ def render(assigns) do
       messages: @messages
     }}
     callbacks={%{
-      "remove-message": {"remove_message", "&1.detail.id"}
+      "remove-message": {"remove_message", arg(1, [:detail, :id])}
     }}
   />
   """

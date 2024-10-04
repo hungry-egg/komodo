@@ -53,15 +53,15 @@ defmodule Komodo.ComponentsTest do
           name: "MyComponent",
           callbacks: %{
             onEvent: "event",
-            onAnotherEvent: {"another_event", "&1.detail[0]"},
-            onYetAnotherEvent: {"yet_another_event", %{"a" => "&1.detail[0]"}}
+            onAnotherEvent: {"another_event", "my-id"},
+            onYetAnotherEvent: {"yet_another_event", %{"a" => "val"}}
           }
         )
 
       assert Jason.decode!(data_callbacks) == %{
                "onEvent" => ["event"],
-               "onAnotherEvent" => ["another_event", "&1.detail[0]"],
-               "onYetAnotherEvent" => ["yet_another_event", %{"a" => "&1.detail[0]"}]
+               "onAnotherEvent" => ["another_event", "my-id"],
+               "onYetAnotherEvent" => ["yet_another_event", %{"a" => "val"}]
              }
     end
 
