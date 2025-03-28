@@ -1,10 +1,10 @@
 {
   "name": "komodo-svelte",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Svelte bindings for Komodo elixir library",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.svelte.js",
+  "types": "dist/index.svelte.d.ts",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "pnpm run build"
@@ -27,9 +27,13 @@
     "url": "https://github.com/hungry-egg/komodo/issues"
   },
   "homepage": "https://github.com/hungry-egg/komodo/tree/main/packages/komodo-svelte#readme",
+  "peerDependencies": {
+    "svelte": ">=5"
+  },
   "devDependencies": {
+    "@tsconfig/svelte": "^5.0.4",
     "komodo": "workspace:^",
-    "svelte": "^4.2.15",
+    "svelte": "^5.25.3",
     "typescript": "^5.4.5"
   }
 }

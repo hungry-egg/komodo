@@ -6,7 +6,7 @@
     "moduleResolution": "NodeNext",
     "declaration": true,
     "sourceMap": true,
-    "lib": ["DOM", "ES2019"],
+    "lib": ["DOM", "ES2020"],
     "esModuleInterop": true
   }
 }

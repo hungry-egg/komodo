@@ -24,6 +24,10 @@ If so, you can either change the tailwind config in `config.exs` to output to a 
 
 If you are only **using** Svelte components as opposed to writing your own, you should be able to skip this step.
 
+## Versions
+
+Version `0.0.1` of this package works with Svelte < 5, versions from `0.1.0` onwards work with Svelte >= 5.
+
 ## Installation
 
 - Follow the instructions from [the Komodo library](https://github.com/hungry-egg/komodo) to render js components with Phoenix Liveview.
