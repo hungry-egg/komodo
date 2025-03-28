@@ -1,25 +1,27 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import { coordFromClick } from "../helpers/coordFromClick";
 
-  const dispatch = createEventDispatcher();
-
-  export let marker;
+  let {
+    marker,
+    onSelectCoord,
+  }: {
+    marker: [number, number];
+    onSelectCoord: (coord: [number, number]) => void;
+  } = $props();
 
   const handleClick = (event) => {
-    const [x, y] = coordFromClick(event);
-    dispatch("selectCoord", [x, y]);
+    const coord = coordFromClick(event);
+    onSelectCoord(coord);
   };
 </script>
 
-<!-- svelte-ignore a11y-unknown-aria-attribute -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="container" on:click={handleClick}>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="container" onclick={handleClick} aria-label="map">
   <div
     class="marker"
     style="left: {marker[0]}%; top: calc(100% - {marker[1]}%)"
-  />
+  ></div>
 </div>
 
 <style>

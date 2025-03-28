@@ -6,7 +6,7 @@ export const coordFromClick = ({
   clientX: number;
   clientY: number;
   target: EventTarget;
-}) => {
+}): [number, number] => {
   const {
     left: elX,
     bottom: elY,

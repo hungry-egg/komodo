@@ -55,7 +55,7 @@ defmodule PhxExampleWeb.HomeLive do
             id="svelte-map"
             name="SvelteMap"
             props={%{marker: @marker}}
-            callbacks={%{selectCoord: {"selected_coord", arg(1, [:detail])}}}
+            callbacks={%{onSelectCoord: {"selected_coord", arg(1)}}}
           />
         </section>
       </div>
