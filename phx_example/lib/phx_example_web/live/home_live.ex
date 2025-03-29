@@ -1,12 +1,14 @@
 defmodule PhxExampleWeb.HomeLive do
   use PhxExampleWeb, :live_view
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(marker: random_marker())}
+     |> assign(marker: random_marker(), count: 0)}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="flex flex-col gap-y-3">
@@ -59,18 +61,41 @@ defmodule PhxExampleWeb.HomeLive do
           />
         </section>
       </div>
+      <div class="grid grid-cols-2 gap-y-4">
+        <div>
+          <h2 class="font-semibold mb-2">Counter from LiveView</h2>
+          <.js_component
+            id="live-view-counter"
+            name="Counter"
+            props={%{count: @count}}
+            callbacks={%{increment: "increment"}}
+          />
+        </div>
+        <div>
+          <h2 class="font-semibold mb-2">Counter internal to LiveComponent</h2>
+          <.live_component
+            id="component-with-counter"
+            module={PhxExampleWeb.HomeLive.ComponentWithCounter}
+          />
+        </div>
+      </div>
     </div>
     """
   end
 
+  @impl true
   def handle_event("selected_coord", marker, socket) do
-    # dbg(marker)
-    # {:noreply, socket}
     {:noreply, socket |> assign(marker: marker)}
   end
 
+  @impl true
   def handle_event("update_marker", _, socket) do
     {:noreply, socket |> assign(marker: random_marker())}
+  end
+
+  @impl true
+  def handle_event("increment", _, socket) do
+    {:noreply, socket |> assign(count: socket.assigns.count + 1)}
   end
 
   defp random_marker do

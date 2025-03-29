@@ -26,6 +26,7 @@ import componentFromReact from "komodo-react";
 import componentFromSvelte from "komodo-svelte";
 import componentFromVue from "komodo-vue";
 import "./lit/map";
+import "./lit/counter";
 import ReactMap from "./react/map";
 import SvelteMap from "./svelte/map.svelte";
 import VueMap from "./vue/map.vue";
@@ -39,6 +40,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
   hooks: {
     komodo: registerJsComponents({
       CustomElementMap: componentFromElement("my-map"),
+      Counter: componentFromElement("my-counter"),
       ReactMap: componentFromReact(ReactMap),
       SvelteMap: componentFromSvelte(SvelteMap),
       VueMap: componentFromVue(VueMap),
