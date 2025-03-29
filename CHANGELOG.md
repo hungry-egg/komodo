@@ -1,5 +1,9 @@
 # Changelog for Komodo
 
+## 0.2.1 (2025-03-29)
+
+- Fix for working with live components. `<.js_component />` inside a LiveComponent will now send events to the LiveComponent rather than the containing LiveView.
+
 ## 0.2.0 (2024-10-04)
 
 ### Enhancements
