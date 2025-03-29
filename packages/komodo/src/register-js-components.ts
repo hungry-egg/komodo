@@ -25,7 +25,7 @@ export const registerJsComponents = (
       (callbackName: string, ...args: any[]) => {
         const [eventName, payloadSpec] = callbacks[callbackName];
         const payload = parsePayload(payloadSpec, args);
-        this.pushEvent(eventName, payload);
+        this.pushEventTo(this.el, eventName, payload);
       }
     );
   },
