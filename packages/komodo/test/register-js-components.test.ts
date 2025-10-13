@@ -9,7 +9,7 @@ type El = {
 
 type Hook = {
   el: El;
-  pushEvent: (name: string, payload: any) => void;
+  pushEventTo: (el: Element, name: string, payload: any) => void;
   mounted: () => void;
   updated: () => void;
   destroyed: () => void;
@@ -58,7 +58,7 @@ describe("registerJsComponents", () => {
           callbacks: JSON.stringify(callbacks),
         },
       },
-      pushEvent: jest.fn(),
+      pushEventTo: jest.fn(),
       ...registerJsComponents({
         myComponent: testComponent,
       }),
@@ -81,10 +81,14 @@ describe("registerJsComponents", () => {
     hook.mounted();
 
     emitEvent("selectIndex");
-    expect(hook.pushEvent).toHaveBeenCalledWith("select_index", undefined);
+    expect(hook.pushEventTo).toHaveBeenCalledWith(
+      hook.el,
+      "select_index",
+      undefined
+    );
 
     emitEvent("dayChanged", { day: "Tues" }, { day: "Weds" });
-    expect(hook.pushEvent).toHaveBeenCalledWith("day_changed", {
+    expect(hook.pushEventTo).toHaveBeenCalledWith(hook.el, "day_changed", {
       id: "my-component",
       from: "Tues",
       to: "Weds",
